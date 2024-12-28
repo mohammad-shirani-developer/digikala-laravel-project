@@ -39,6 +39,12 @@ class Index extends Component
         }
     }
 
+    public function delete($country_id)
+    {
+        Country::query()->where('id', $country_id)->delete();
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد');
+    }
+
     public function render()
     {
         $countries = Country::all();
