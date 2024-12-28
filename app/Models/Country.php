@@ -10,9 +10,11 @@ class Country extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function submit($FormData)
+    public function submit($FormData, $countryId)
     {
-        Country::query()->create([
+        Country::query()->updateOrCreate([
+            'id' => $countryId,
+        ], [
             'name' => $FormData['name'],
 
         ]);

@@ -12,6 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public $name;
+    public $countryId;
 
     public function submit($FormData, Country $country)
     {
@@ -24,9 +25,18 @@ class Index extends Component
             '*.max' => 'حداکثر تعداد کاراکترها : 30',
         ]);
         $validator->validate();
-        $country->submit($FormData);
+        $country->submit($FormData, $this->countryId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
+    }
+
+    public function edit($country_id)
+    {
+        $country = Country::query()->where('id', $country_id)->first();
+        if ($country) {
+            $this->name = $country->name;
+            $this->countryId = $country->id;
+        }
     }
 
     public function render()
