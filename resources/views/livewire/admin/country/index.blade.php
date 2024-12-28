@@ -65,7 +65,7 @@
                             @foreach ($countries as $country)
                                 <tr>
                                     <td>
-                                        {{ $loop->index + 1 }}
+                                        {{ $loop->iteration + $countries->firstItem() - 1 }}
                                     </td>
                                     <td>
                                         <div class="media">
@@ -113,6 +113,7 @@
 
                         </tbody>
                     </table>
+                    {{ $countries->links('layouts.admin.pagination') }}
                 </div>
             </div>
         </div>

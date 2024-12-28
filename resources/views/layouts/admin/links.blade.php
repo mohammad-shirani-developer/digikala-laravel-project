@@ -32,3 +32,12 @@
 <link rel="stylesheet" href="/admin/src/plugins/src/sweetalerts2/sweetalerts2.css">
 <link href="/admin/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
 <link href="/admin/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+
+
+<link href="/admin/src/assets/css/light/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+<link href="/admin/src/assets/css/dark/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="/admin/src/assets/css/light/forms/switches.css">
+<link rel="stylesheet" type="text/css" href="/admin/src/assets/css/dark/forms/switches.css">
+
+@stack('link')
