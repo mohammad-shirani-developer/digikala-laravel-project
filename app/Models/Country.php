@@ -12,6 +12,7 @@ class Country extends Model
 
     public function submit($FormData, $countryId)
     {
+
         Country::query()->updateOrCreate([
             'id' => $countryId,
         ], [
