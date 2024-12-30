@@ -25,6 +25,7 @@ class Index extends Component
             '*.max' => 'حداکثر تعداد کاراکترها : 30',
         ]);
         $validator->validate();
+        $this->resetValidation();
         $country->submit($FormData, $this->countryId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');

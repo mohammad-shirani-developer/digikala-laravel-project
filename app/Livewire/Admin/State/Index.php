@@ -36,6 +36,7 @@ class Index extends Component
             'countryId.exists' => 'کشور نامعتبر است.'
         ]);
         $validator->validate();
+        $this->resetValidation();
         $state->submit($FormData, $this->stateId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
