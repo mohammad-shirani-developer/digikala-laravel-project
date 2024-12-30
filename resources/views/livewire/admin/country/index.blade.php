@@ -29,7 +29,10 @@
                             <strong>خطا !</strong> {{ $message }}.</button>
                         </div>
                     @enderror
-                    <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">ثبت</button>
+                    <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">
+                        <span wire:loading.remove>ثبت</span>
+                        <div class="spinner-border text-white me-2 align-self-center loader-sm " wire:loading></div>
+                    </button>
                 </form>
 
 
