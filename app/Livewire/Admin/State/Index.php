@@ -51,6 +51,12 @@ class Index extends Component
         }
     }
 
+    public function delete($state_id)
+    {
+        State::query()->where('id', $state_id)->delete();
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد');
+    }
+
     public function render()
     {
         $states = State::query()->with('country')->paginate(10);
