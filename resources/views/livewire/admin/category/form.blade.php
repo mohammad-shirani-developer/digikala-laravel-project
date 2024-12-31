@@ -4,7 +4,7 @@
         <div class="widget-header">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>مدیریت شهر ها</h4>
+                    <h4>مدیریت دسته بندی ها</h4>
                 </div>
             </div>
         </div>
@@ -13,7 +13,7 @@
             <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
                 <div class="row mb-4">
                     <div class="col-sm-12">
-                        <label for="name" class="form-label">نام شهر</label>
+                        <label for="name" class="form-label">نام دسته بندی</label>
                         <input type="text" class="form-control" id="name" placeholder="" name="name"
                             wire:model='name'>
                     </div>
@@ -30,17 +30,18 @@
 
                 <div class="row mb-4">
                     <div class="col-sm-12">
-                        <label for="country" class="form-label">استان</label>
-                        <select id="country" class="form-control" placeholder="انتخاب استان .." name="stateId"
-                            wire:ignore wire:model='stateId' autocomplete="off">
-                            @foreach ($staes as $state)
-                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                        <label for="country" class="form-label">دسته بندی والد</label>
+                        <select id="country" class="form-control" placeholder="انتخاب دسته بندی والد .."
+                            name="parentId" wire:ignore wire:model='parentId' autocomplete="off">
+                            <option value="">دسته بندی والد</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
 
                         </select>
                     </div>
                 </div>
-                @error('stateId')
+                @error('parentId')
                     <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-4" role="alert"
                         wire:loading.remove>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">

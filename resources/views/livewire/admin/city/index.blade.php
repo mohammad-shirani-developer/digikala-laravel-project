@@ -1,9 +1,9 @@
 {{-- form --}}
 <div class="row">
-    @include('livewire.admin.category.form')
+    @include('livewire.admin.city.form')
 
 
     {{-- list --}}
 
-    @include('livewire.admin.category.table')
+    @include('livewire.admin.city.table')
 </div>

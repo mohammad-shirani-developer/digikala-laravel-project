@@ -3,7 +3,7 @@
         <div class="widget-header">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>لیست شهرها</h4>
+                    <h4>لیست دسته بندی ها</h4>
                 </div>
             </div>
         </div>
@@ -14,29 +14,29 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">اسم شهر</th>
-                            <th scope="col">اسم استان</th>
+                            <th scope="col">اسم دسته بندی </th>
+                            <th scope="col">اسم دسته والد</th>
                             <th class="text-center" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cities as $city)
+                        @foreach ($allCategories as $category)
                             <tr>
                                 <td>
-                                    {{ $loop->iteration + $cities->firstItem() - 1 }}
+                                    {{ $loop->iteration + $allCategories->firstItem() - 1 }}
                                 </td>
                                 <td>
                                     <div class="media">
                                         <div class="media-body align-self-center">
-                                            <h6 class="mb-0">{{ $city->name }}</h6>
+                                            <h6 class="mb-0">{{ $category->name }}</h6>
 
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $city->state->name }}</td>
+                                <td>{{ @$category->parent->name }}</td>
                                 <td class="text-center">
                                     <div class="action-btns">
-                                        <a href="javascript:void(0);" wire:click='edit({{ $city->id }})'
+                                        <a href="javascript:void(0);" wire:click='edit({{ $category->id }})'
                                             class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -48,7 +48,7 @@
                                             </svg>
                                         </a>
                                         <a href="javascript:void(0);" wire:confirm="آیا مطمئن هستید؟"
-                                            wire:click='delete({{ $city->id }})'
+                                            wire:click='delete({{ $category->id }})'
                                             class="action-btn btn-delete bs-tooltip" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Delete">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -72,7 +72,7 @@
 
                     </tbody>
                 </table>
-                {{ $cities->links('layouts.admin.pagination') }}
+                {{ $allCategories->links('layouts.admin.pagination') }}
             </div>
         </div>
     </div>
