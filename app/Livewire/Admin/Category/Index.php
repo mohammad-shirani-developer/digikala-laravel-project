@@ -43,6 +43,17 @@ class Index extends Component
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }
 
+    public function edit($category_id)
+    {
+        $Category = Category::query()->where('id', $category_id)->first();
+        if ($Category) {
+            $this->name = $Category->name;
+            $this->categoryId = $Category->id;
+            $this->parentId = $Category->category_id;
+        }
+    }
+
+
 
 
     public function render()
