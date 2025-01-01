@@ -11,11 +11,6 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
-
     public function submit($FormData, $categoryId)
     {
         if ($FormData['parentId'] == "") {
@@ -29,5 +24,15 @@ class Category extends Model
             'category_id' => $FormData['parentId']
 
         ]);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'category_id', 'id');
     }
 }
