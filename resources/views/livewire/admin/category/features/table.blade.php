@@ -37,7 +37,7 @@
                                         class="btn btn-outline-info">مقادیر</a></td>
                                 <td class="text-center">
                                     <div class="action-btns">
-                                        <a href="javascript:void(0);" wire:click='edit({{ $category->id }})'
+                                        <a href="javascript:void(0);" wire:click='edit({{ $feature->id }})'
                                             class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -49,7 +49,7 @@
                                             </svg>
                                         </a>
                                         <a href="javascript:void(0);" wire:confirm="آیا مطمئن هستید؟"
-                                            wire:click='delete({{ $category->id }})'
+                                            wire:click='delete({{ $feature->id }})'
                                             class="action-btn btn-delete bs-tooltip" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Delete">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

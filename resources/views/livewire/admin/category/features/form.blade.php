@@ -4,7 +4,9 @@
         <div class="widget-header">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>مدیریت دسته بندی ها</h4>
+                    <h4>ویژگی دسته بندی
+                        <span wire:ignore>{{ $categoryName }}</span>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -13,7 +15,7 @@
             <form wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
                 <div class="row mb-4">
                     <div class="col-sm-12">
-                        <label for="name" class="form-label">نام دسته بندی</label>
+                        <label for="name" class="form-label">نام ویژگی</label>
                         <input type="text" class="form-control" id="name" placeholder="" name="name"
                             wire:model='name'>
                     </div>

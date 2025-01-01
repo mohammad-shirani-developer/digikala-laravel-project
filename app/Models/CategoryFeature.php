@@ -10,4 +10,15 @@ class CategoryFeature extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function submit($FormData, $categoryId, $featureId)
+    {
+        CategoryFeature::query()->updateOrCreate([
+            'id' => $featureId,
+        ], [
+            'name' => $FormData['name'],
+            'category_id' => $categoryId
+
+        ]);
+    }
 }
