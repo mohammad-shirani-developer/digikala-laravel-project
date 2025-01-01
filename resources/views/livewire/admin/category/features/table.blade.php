@@ -14,29 +14,27 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">اسم دسته بندی </th>
-                            <th scope="col">اسم دسته والد</th>
-                            <th scope="col">ویژگی ها</th>
+                            <th scope="col">اسم ویژگی </th>
+                            <th scope="col">مقادیر</th>
                             <th class="text-center" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($allCategories as $category)
+                        @foreach ($categoryFeatures as $feature)
                             <tr>
                                 <td>
-                                    {{ $loop->iteration + $allCategories->firstItem() - 1 }}
+                                    {{ $loop->iteration + $categoryFeatures->firstItem() - 1 }}
                                 </td>
                                 <td>
                                     <div class="media">
                                         <div class="media-body align-self-center">
-                                            <h6 class="mb-0">{{ $category->name }}</h6>
+                                            <h6 class="mb-0">{{ $feature->name }}</h6>
 
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ @$category->parent->name }}</td>
-                                <td><a href="{{ route('admin.category.features', $category->id) }}"
-                                        class="btn btn-outline-info">ویژگی</a></td>
+                                <td><a href="{{ route('admin.category.features', $feature->id) }}"
+                                        class="btn btn-outline-info">مقادیر</a></td>
                                 <td class="text-center">
                                     <div class="action-btns">
                                         <a href="javascript:void(0);" wire:click='edit({{ $category->id }})'
@@ -75,7 +73,7 @@
 
                     </tbody>
                 </table>
-                {{ $allCategories->links('layouts.admin.pagination') }}
+                {{ $categoryFeatures->links('layouts.admin.pagination') }}
             </div>
         </div>
     </div>
