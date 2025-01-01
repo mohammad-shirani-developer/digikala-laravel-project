@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/admin/dashboard',  dashboardIndex::class)->name('admin.dashboard.index');
+Route::get('/admin',  dashboardIndex::class)->name('admin.dashboard.index');
 Route::get('/admin/country', countryIndex::class)->name('admin.country.index');
 Route::get('/admin/state', stateIndex::class)->name('admin.state.index');
 Route::get('/admin/city', cityIndex::class)->name('admin.city.index');
