@@ -21,4 +21,9 @@ class CategoryFeature extends Model
 
         ]);
     }
+
+    public function values()
+    {
+        return $this->hasMany(CategoryFeatureValue::class);
+    }
 }

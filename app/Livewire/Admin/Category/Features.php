@@ -42,6 +42,28 @@ class Features extends Component
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }
 
+    public function edit($categoryFeatureId)
+    {
+        $CategoryFeature = CategoryFeature::query()->where('id', $categoryFeatureId)->first();
+        if ($CategoryFeature) {
+            $this->name = $CategoryFeature->name;
+            $this->featureId = $CategoryFeature->id;
+            $this->categoryId = $CategoryFeature->category_id;
+        }
+    }
+
+    public function delete($categoryFeatureId)
+    {
+
+        $CategoryFeature = CategoryFeature::query()->where('id', $categoryFeatureId)->first();
+        if ($CategoryFeature->values()->exists()) {
+            $this->dispatch('error', 'این دسته بندی دارای زیر شاخه است و نمی توانید آن را حذف کنید');
+            return;
+        }
+        $CategoryFeature->delete();
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد');
+    }
+
 
 
 
