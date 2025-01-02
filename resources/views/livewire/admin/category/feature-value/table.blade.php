@@ -3,7 +3,7 @@
         <div class="widget-header">
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>لیست دسته بندی ها</h4>
+                    <h4>لیست مقادیر</h4>
                 </div>
             </div>
         </div>
@@ -14,30 +14,27 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">اسم ویژگی </th>
-                            <th scope="col">مقادیر</th>
+                            <th scope="col">مقدار</th>
                             <th class="text-center" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categoryFeatures as $feature)
+                        @foreach ($featureValues as $value)
                             <tr>
                                 <td>
-                                    {{ $loop->iteration + $categoryFeatures->firstItem() - 1 }}
+                                    {{ $loop->iteration + $featureValues->firstItem() - 1 }}
                                 </td>
                                 <td>
                                     <div class="media">
                                         <div class="media-body align-self-center">
-                                            <h6 class="mb-0">{{ $feature->name }}</h6>
+                                            <h6 class="mb-0">{{ $value->value }}</h6>
 
                                         </div>
                                     </div>
                                 </td>
-                                <td><a href="{{ route('admin.category.features.values', $feature->id) }}"
-                                        class="btn btn-outline-info">مقادیر</a></td>
                                 <td class="text-center">
                                     <div class="action-btns">
-                                        <a href="javascript:void(0);" wire:click='edit({{ $feature->id }})'
+                                        <a href="javascript:void(0);" wire:click='edit({{ $value->id }})'
                                             class="action-btn btn-edit bs-tooltip me-2" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -49,7 +46,7 @@
                                             </svg>
                                         </a>
                                         <a href="javascript:void(0);" wire:confirm="آیا مطمئن هستید؟"
-                                            wire:click='delete({{ $feature->id }})'
+                                            wire:click='delete({{ $value->id }})'
                                             class="action-btn btn-delete bs-tooltip" data-toggle="tooltip"
                                             data-placement="top" title="" data-bs-original-title="Delete">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -73,7 +70,7 @@
 
                     </tbody>
                 </table>
-                {{ $categoryFeatures->links('layouts.admin.pagination') }}
+                {{ $featureValues->links('layouts.admin.pagination') }}
             </div>
         </div>
     </div>
