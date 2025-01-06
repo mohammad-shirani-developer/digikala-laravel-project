@@ -8,14 +8,20 @@ use App\Models\Seller;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Illuminate\Support\Str;
-
+use Livewire\Attributes\Validate;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
+    use WithFileUploads;
+
     public $categories = [];
     public $sellers = [];
     public $name;
     public $slug;
+
+    // #[Validate(['photos.*' => 'image|max:1024'])]
+    public $photos = [];
 
     public $productId;
 
@@ -33,6 +39,8 @@ class Create extends Component
     public function submit($FormData, Product $product)
     {
 
+
+
         if (isset($FormData['featured'])) {
             $FormData['featured'] = true;
         } else {
@@ -40,8 +48,10 @@ class Create extends Component
         }
 
         // dd($FormData);
+        $FormData['photos'] = $this->photos;
 
         $validator = Validator::make($FormData, [
+            'photos.*' => 'nullable|image|mimes:png,jpg,jpeg,gif,webp',
             'name' => 'required|string',
             'slug' => 'required|string',
             'meta_title' => 'nullable|string',
@@ -59,17 +69,18 @@ class Create extends Component
             '*.integer' => 'این فیلد باید فرمت عددی باشد ',
             '*.min' => 'حداکثر تعداد کاراکترها : 50',
             'categoryId.exists' => 'دسته بندی نامعتبر است.',
-            'sellerId.exists' => 'فروشنده نامعتبر است.'
+            'sellerId.exists' => 'فروشنده نامعتبر است.',
+            'photos.*.image' => 'فرمت  نامعتبر است.',
         ]);
         $validator->validate();
         $this->resetValidation();
-        $product->submit($FormData, $this->productId);
+        $product->submit($FormData, $this->productId, $this->photos);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }
 
     public function render()
     {
-        return view('livewire.admin.product.create')->layout('layouts.admin.app');
+        return view('livewire.admin.product.create.index')->layout('layouts.admin.app');
     }
 }
