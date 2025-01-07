@@ -33,7 +33,7 @@
             <div class="col-xxl-12 col-md-6 mb-4">
                 <label for="categoryId">دسته بندی</label>
                 <select class="form-select" id="categoryId" name="categoryId">
-                    <option value="">انتخاب کنید...</option>
+                    <option>انتخاب کنید...</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -52,7 +52,7 @@
             <div class="col-xxl-12 col-md-6 mb-4">
                 <label for="sellerId">فروشنده</label>
                 <select class="form-select" id="sellerId" name="sellerId">
-                    <option value="">انتخاب کنید...</option>
+                    {{-- <option value="">انتخاب کنید...</option> --}}
                     @foreach ($sellers as $seller)
                         <option value="{{ $seller->id }}">{{ $seller->shop_name }}</option>
                     @endforeach

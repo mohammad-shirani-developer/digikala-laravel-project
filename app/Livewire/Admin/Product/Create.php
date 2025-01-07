@@ -40,7 +40,7 @@ class Create extends Component
     public function submit($FormData, Product $product)
     {
 
-
+        // dd($FormData);
 
         if (isset($FormData['featured'])) {
             $FormData['featured'] = true;
@@ -92,7 +92,6 @@ class Create extends Component
         $validator->validate();
         $this->resetValidation();
         $product->submit($FormData, $this->productId, $this->photos, $this->coverIndex);
-        $this->reset();
         $this->redirect(route('admin.product.index'));
         session()->flash('success', 'محصول با موفقیت افزوده شد !');
     }

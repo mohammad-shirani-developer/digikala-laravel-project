@@ -39,7 +39,8 @@ class Product extends Model
             'featured' => $FormData['featured'],
             'discount_duration' => $FormData['discount_duration'],
             'category_id' => $FormData['categoryId'],
-            'seller_id' => $FormData['sellerId']
+            'seller_id' => $FormData['sellerId'],
+            'p_code' => config('app.name') . '-' . $this->generateProductCode()
 
         ]);
     }
@@ -93,6 +94,15 @@ class Product extends Model
         $manager->read($photo->getRealPath())->scale($width, $height)
             ->toWebp()
             ->save($path . '/' . pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp');
+    }
+
+    public function generateProductCode()
+    {
+        do {
+            $randomCode = rand(100, 100000000);
+            $checkCode = Product::query()->where('p_code', $randomCode)->first();
+        } while ($checkCode);
+        return $randomCode;
     }
 
     public function category()
