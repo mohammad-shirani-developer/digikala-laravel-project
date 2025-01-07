@@ -20,10 +20,11 @@ class Create extends Component
     public $name;
     public $slug;
 
-    // #[Validate(['photos.*' => 'image|max:1024'])]
     public $photos = [];
 
     public $productId;
+
+    public $coverIndex = 0;
 
     public function mount()
     {
@@ -47,8 +48,22 @@ class Create extends Component
             $FormData['featured'] = false;
         }
 
+        if ($FormData['discount_duration'] == '') {
+            $FormData['discount_duration'] = null;
+        }
+
+        if (!isset($FormData['sellerId'])) {
+            $FormData['sellerId'] = null;
+        }
+
+        if ($FormData['discount'] == '') {
+            $FormData['discount'] = null;
+        }
+
         // dd($FormData);
         $FormData['photos'] = $this->photos;
+
+        $FormData['coverIndex'] = $this->coverIndex;
 
         $validator = Validator::make($FormData, [
             'photos.*' => 'nullable|image|mimes:png,jpg,jpeg,gif,webp',
@@ -63,7 +78,9 @@ class Create extends Component
             'discount_duration' => 'nullable|string',
             'sellerId' => 'nullable|exists:sellers,id',
             'categoryId' => 'required|exists:categories,id',
+            'coverIndex' => 'required',
         ], [
+            'coverIndex.required' => 'لطفا یک تصویر شاخص انتخاب کنید !',
             '*.required' => 'فیلد ضروری است.',
             '*.string' => 'فرمت اشتباه است ',
             '*.integer' => 'این فیلد باید فرمت عددی باشد ',
@@ -74,9 +91,23 @@ class Create extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $product->submit($FormData, $this->productId, $this->photos);
+        $product->submit($FormData, $this->productId, $this->photos, $this->coverIndex);
         $this->reset();
-        $this->dispatch('success', 'عملیات با موفقیت انجام شد');
+        $this->redirect(route('admin.product.index'));
+        session()->flash('success', 'محصول با موفقیت افزوده شد !');
+    }
+
+    public function setCoverImage($index)
+    {
+        $this->coverIndex = $index;
+    }
+
+    public function removePhoto($index)
+    {
+        if ($index == $this->coverIndex) {
+            $this->coverIndex = null;
+        }
+        array_splice($this->photos, $index, 1);
     }
 
     public function render()

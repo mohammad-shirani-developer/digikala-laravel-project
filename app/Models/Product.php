@@ -16,13 +16,13 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function submit($FormData, $productId, $photos)
+    public function submit($FormData, $productId, $photos, $coverIndex)
     {
-        DB::transaction(function () use ($FormData, $productId, $photos) {
+        DB::transaction(function () use ($FormData, $productId, $photos, $coverIndex) {
 
             $product = $this->submitToProduct($FormData, $productId);
             $this->submitToSeoItem($FormData, $product->id);
-            $this->submitToProductImage($photos, $product->id);
+            $this->submitToProductImage($photos, $product->id, $coverIndex);
             $this->saveImages($product->id, $photos);
         });
     }
@@ -56,15 +56,16 @@ class Product extends Model
         ]);
     }
 
-    public function submitToProductImage($photos, $productId)
+    public function submitToProductImage($photos, $productId, $coverIndex)
     {
-        foreach ($photos as $photo) {
+        foreach ($photos as $index => $photo) {
             $path = pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp';
 
             ProductImage::query()->create(
                 [
                     'path' => $path,
                     'product_id' => $productId,
+                    'is_cover' => $index == $coverIndex
 
                 ]
             );
@@ -84,7 +85,7 @@ class Product extends Model
 
     public function resizeImage($photo, $productId, $width, $height, $folder)
     {
-        $path = public_path('product/' . $productId . '/' . $folder);
+        $path = public_path('products/' . $productId . '/' . $folder);
         if (!file_exists($path)) {
             mkdir($path, 0755, true);
         }
@@ -92,5 +93,15 @@ class Product extends Model
         $manager->read($photo->getRealPath())->scale($width, $height)
             ->toWebp()
             ->save($path . '/' . pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function coverImage()
+    {
+        return $this->belongsTo(ProductImage::class, 'id', 'product_id')->where('is_cover', true);
     }
 }
