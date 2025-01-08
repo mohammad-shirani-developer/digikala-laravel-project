@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -105,6 +106,18 @@ class Product extends Model
         } while ($checkCode);
         return $randomCode;
     }
+
+    public function removeProduct(Product $product)
+    {
+        DB::transaction(function () use ($product) {
+
+            $product->delete();
+            ProductImage::query()->where('product_id', $product->id)->delete();
+            SeoItem::query()->where('ref_id', $product->id)->delete();
+            File::deleteDirectory('products/' . $product->id);
+        });
+    }
+
 
     public function category()
     {
