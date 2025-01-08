@@ -3,7 +3,8 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="name">نام محصول</label>
-            <input type="text" class="form-control" id="name" name="name" wire:model.live.debounce.300ms='name'>
+            <input type="text" class="form-control" id="name" name="name" value="{{ @$product->name }}"
+                wire:model.live.debounce.300ms='name'>
         </div>
     </div>
     @error('name')
@@ -18,7 +19,8 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="slug">اسلاگ</label>
-            <input type="text" class="form-control" name="slug" id="slug" wire:model='slug' readonly>
+            <input type="text" class="form-control" name="slug" id="slug"
+                value="{{ @$product->seoItem->slug }}" wire:model='slug' readonly>
         </div>
     </div>
     @error('slug')
@@ -33,7 +35,8 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="meta_title">عنوان متا</label>
-            <input type="text" class="form-control" id="meta_title" name="meta_title">
+            <input type="text" class="form-control" id="meta_title" name="meta_title"
+                value="{{ @$product->seoItem->meta_title }}">
         </div>
     </div>
     @error('meta_title')
@@ -48,7 +51,7 @@
     <div class="row mb-4">
         <div class="col-sm-12">
             <label for="meta_description">توضیحات متا</label>
-            <textarea type="text" class="form-control" id="meta_description" name="meta_description"></textarea>
+            <textarea type="text" class="form-control" id="meta_description" name="meta_description">{{ @$product->seoItem->meta_description }}</textarea>
         </div>
     </div>
     @error('meta_description')

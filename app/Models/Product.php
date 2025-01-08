@@ -61,6 +61,9 @@ class Product extends Model
 
     public function submitToProductImage($photos, $productId, $coverIndex)
     {
+        dd($coverIndex);
+        ProductImage::query()->where('product_id', $productId)->update(['is_cover' => false]);
+
         foreach ($photos as $index => $photo) {
             $path = pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp';
 
@@ -127,5 +130,15 @@ class Product extends Model
     public function coverImage()
     {
         return $this->belongsTo(ProductImage::class, 'id', 'product_id')->where('is_cover', true);
+    }
+
+    public function seoItem()
+    {
+        return $this->belongsTo(SeoItem::class, 'id', 'ref_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

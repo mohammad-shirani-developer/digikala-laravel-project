@@ -4,7 +4,9 @@ namespace App\Livewire\Admin\Product;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Seller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -26,8 +28,24 @@ class Create extends Component
 
     public $coverIndex = 0;
 
+    // edit
+
+    public $product;
+
     public function mount()
     {
+        if ($_GET and $_GET['p_id']) {
+            $this->productId = $_GET['p_id'];
+            $this->product = Product::query()->with('seoItem', 'images')
+                ->where('id', $this->productId)->firstOrFail();
+
+            $this->name = $this->product->name;
+            $this->slug = $this->product->seoItem->slug;
+            // dd($this->product);
+        }
+        // dd($this->product->discount_duration);
+
+
         $this->categories = Category::all();
         $this->sellers = Seller::query()->select('id', 'shop_name')->get();
     }
@@ -107,6 +125,26 @@ class Create extends Component
             $this->coverIndex = null;
         }
         array_splice($this->photos, $index, 1);
+    }
+
+    public function removeOldPhoto(ProductImage $productImage, $productId)
+    {
+        $productImage->delete();
+        File::delete(public_path('products/' . $productId . '/small/' . $productImage->path));
+        File::delete(public_path('products/' . $productId . '/medium/' . $productImage->path));
+        File::delete(public_path('products/' . $productId . '/large/' . $productImage->path));
+    }
+
+    public function setCoverOldImage($photoId)
+    {
+        dd($photoId);
+
+        ProductImage::query()->where('product_id', $this->productId)->update(['is_cover' => false]);
+        ProductImage::query()->where([
+            'product_id' => $this->productId,
+            'id' => $photoId
+        ])->update(['is_cover' => true]);
+        $this->dispatch('success', 'تصویر کاور با موفقیت تغییر کرد');
     }
 
     public function render()
