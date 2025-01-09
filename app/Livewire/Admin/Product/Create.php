@@ -137,7 +137,7 @@ class Create extends Component
 
     public function setCoverOldImage($photoId)
     {
-        dd($photoId);
+        // dd($photoId);
 
         ProductImage::query()->where('product_id', $this->productId)->update(['is_cover' => false]);
         ProductImage::query()->where([

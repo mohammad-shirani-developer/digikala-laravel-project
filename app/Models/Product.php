@@ -61,7 +61,7 @@ class Product extends Model
 
     public function submitToProductImage($photos, $productId, $coverIndex)
     {
-        dd($coverIndex);
+        // dd($coverIndex);
         ProductImage::query()->where('product_id', $productId)->update(['is_cover' => false]);
 
         foreach ($photos as $index => $photo) {

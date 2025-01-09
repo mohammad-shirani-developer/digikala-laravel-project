@@ -32,11 +32,11 @@ class FeatureValue extends Component
 
 
         $validator = Validator::make($FormData, [
-            'value' => 'required|string|max:30',
+            'value' => 'required|string|max:50',
         ], [
             '*.required' => 'فیلد ضروری است.',
             '*.string' => 'فرمت اشتباه است !',
-            '*.max' => 'حداکثر تعداد کاراکترها : 30',
+            '*.max' => 'حداکثر تعداد کاراکترها : 50',
         ]);
         $validator->validate();
         $this->resetValidation();
