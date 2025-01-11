@@ -30,13 +30,14 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th width='50px' scope="col">#</th>
-                            <th width='150px' scope="col">کد محصول</th>
-                            <th width='130px' scope="col">تصویر محصول</th>
+                            <th scope="col">#</th>
+                            <th scope="col">کد محصول</th>
+                            <th scope="col">تصویر محصول</th>
                             <th scope="col">نام محصول</th>
                             <th scope="col">نام دسته بندی</th>
                             <th scope="col">قیمت</th>
-                            <th scope="col">ویژگی ها</th>
+                            <th scope="col" class="text-center">ویژگی ها</th>
+                            <th scope="col" class="text-center">محتوای محصول</th>
                             <th class="text-center" scope="col"></th>
                         </tr>
                     </thead>
@@ -54,17 +55,14 @@
                                         alt="">
                                 </td>
                                 <td>
-                                    <div class="media">
-                                        <div class="media-body align-self-center">
-                                            <p class="mb-0">{{ $product->name }}</p>
-
-                                        </div>
-                                    </div>
+                                    <p class="mb-0">{{ $product->name }}</p>
                                 </td>
                                 <td>{{ $product->category->name }}</td>
                                 <td>{{ number_format($product->price) }}</td>
-                                <td><a href="{{ route('admin.product.features', $product->id) }}"
+                                <td class="text-center"><a href="{{ route('admin.product.features', $product->id) }}"
                                         class="btn btn-outline-info">ویژگی</a></td>
+                                <td class="text-center"><a href="{{ route('admin.product.content', $product->id) }}"
+                                        class="btn btn-outline-info">محتوا</a></td>
                                 <td class="text-center">
                                     <div class="action-btns">
                                         <a href="{{ route('admin.product.create') }}?p_id={{ $product->id }}"
