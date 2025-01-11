@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UploadFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,11 +11,10 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
-use function PHPUnit\Framework\fileExists;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, UploadFile;
 
     protected $guarded = [];
 
@@ -82,24 +82,14 @@ class Product extends Model
     {
         foreach ($photos as $photo) {
 
-            $this->resizeImage($photo, $productId, 100, 100, 'small');
-            $this->resizeImage($photo, $productId, 300, 300, 'medium');
-            $this->resizeImage($photo, $productId, 800, 800, 'large');
+            $this->uploadImageInWebpFormat($photo, $productId, 100, 100, 'small');
+            $this->uploadImageInWebpFormat($photo, $productId, 300, 300, 'medium');
+            $this->uploadImageInWebpFormat($photo, $productId, 800, 800, 'large');
             $photo->delete();
         }
     }
 
-    public function resizeImage($photo, $productId, $width, $height, $folder)
-    {
-        $path = public_path('products/' . $productId . '/' . $folder);
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
-        }
-        $manager = new ImageManager(new Driver());
-        $manager->read($photo->getRealPath())->scale($width, $height)
-            ->toWebp()
-            ->save($path . '/' . pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.webp');
-    }
+
 
     public function generateProductCode()
     {
@@ -119,6 +109,15 @@ class Product extends Model
             SeoItem::query()->where('ref_id', $product->id)->delete();
             File::deleteDirectory('products/' . $product->id);
         });
+    }
+
+
+    public function submitProductContent($FormData, $productId)
+    {
+        Product::query()->where('id', $productId)->update([
+            'short_description' => $FormData['short_description'],
+            'long_description' => $FormData['long_description'],
+        ]);
     }
 
 
