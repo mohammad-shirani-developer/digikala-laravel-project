@@ -4,7 +4,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\City;
 
-class AdminCountryRepository implements AdminCityRepositoryInterface
+class AdminCityRepository implements AdminCityRepositoryInterface
 {
     public function submit($FormData, $cityId)
     {
