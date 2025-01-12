@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Product;
 
 use App\Models\Product;
+use App\Repositories\Admin\AdminProductRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -11,6 +12,13 @@ class Content extends Component
     public $productName;
     public $productId;
     public $longDescription;
+    private $repository;
+
+
+    public function boot(AdminProductRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function mount(Product $product)
     {
@@ -18,7 +26,7 @@ class Content extends Component
         $this->productId = $product->id;
     }
 
-    public function submit($FormData, Product $product)
+    public function submit($FormData)
     {
         $FormData['long_description'] = $this->longDescription;
         $validator = Validator::make($FormData, [
@@ -30,7 +38,7 @@ class Content extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $product->submitProductContent($FormData, $this->productId);
+        $this->repository->submitProductContent($FormData, $this->productId);
     }
 
     public function render()

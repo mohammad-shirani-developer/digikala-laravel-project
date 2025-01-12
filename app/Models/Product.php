@@ -6,10 +6,6 @@ use App\Traits\UploadFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 
 class Product extends Model
