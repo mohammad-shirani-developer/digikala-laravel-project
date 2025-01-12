@@ -15,7 +15,8 @@
             <div class="row mb-4">
                 <div class="col-sm-12">
                     <label for="short_description">معرفی محصول</label>
-                    <textarea class="form-control" rows="6" id="short_description" name="short_description"></textarea>
+                    <textarea class="form-control" rows="6" id="short_description" wire:model="shortDescription"
+                        name="short_description"></textarea>
                 </div>
             </div>
             <div class="row mb-4">

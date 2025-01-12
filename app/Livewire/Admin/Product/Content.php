@@ -12,7 +12,9 @@ class Content extends Component
     public $productName;
     public $productId;
     public $longDescription;
+    public $shortDescription;
     private $repository;
+
 
 
     public function boot(AdminProductRepositoryInterface $repository)
@@ -39,6 +41,8 @@ class Content extends Component
         $validator->validate();
         $this->resetValidation();
         $this->repository->submitProductContent($FormData, $this->productId);
+        $this->redirect(route('admin.product.index'));
+        session()->flash('success', 'عملیات ثبت محتوا محصول با موفقیت انجام شد !');
     }
 
     public function render()
