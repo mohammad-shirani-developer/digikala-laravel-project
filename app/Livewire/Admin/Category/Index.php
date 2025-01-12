@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Category;
 
 use App\Models\Category;
+use App\Repositories\Admin\AdminCategoryRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,13 +17,21 @@ class Index extends Component
     public $categories = [];
     public $parentId;
 
+    private $repository;
+
+
+    public function boot(AdminCategoryRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
 
     public function mount()
     {
         $this->categories = Category::all();
     }
 
-    public function submit($FormData, Category $category)
+    public function submit($FormData)
     {
         // dd($this->categoryId);
 
@@ -38,7 +47,7 @@ class Index extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $category->submit($FormData, $this->categoryId);
+        $this->repository->submit($FormData, $this->categoryId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }

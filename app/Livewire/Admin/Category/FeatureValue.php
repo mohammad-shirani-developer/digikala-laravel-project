@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Category;
 
 use App\Models\CategoryFeature;
 use App\Models\CategoryFeatureValue;
+use App\Repositories\Admin\AdminCategoryRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +17,14 @@ class FeatureValue extends Component
     public $featureName;
     public $value;
     public $valueId;
+
+    private $repository;
+
+
+    public function boot(AdminCategoryRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
 
 
@@ -40,7 +49,7 @@ class FeatureValue extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $categoryFeatureValue->submit($FormData, $this->valueId, $this->featureId);
+        $this->repository->submitCategoryFeatureValue($FormData, $this->valueId, $this->featureId);
         $this->reset('value');
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }

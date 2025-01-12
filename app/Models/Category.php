@@ -12,20 +12,7 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function submit($FormData, $categoryId)
-    {
-        if ($FormData['parentId'] == "") {
-            $FormData['parentId'] = null;
-        }
 
-        Category::query()->updateOrCreate([
-            'id' => $categoryId,
-        ], [
-            'name' => $FormData['name'],
-            'category_id' => $FormData['parentId']
-
-        ]);
-    }
 
     public function parent()
     {
