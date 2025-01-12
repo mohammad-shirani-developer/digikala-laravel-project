@@ -3,8 +3,6 @@
 namespace App\Livewire\Admin\Product;
 
 use App\Models\Product;
-use App\Models\ProductImage;
-use App\Models\SeoItem;
 use App\Repositories\Admin\AdminProductRepositoryInterface;
 use Livewire\Component;
 
