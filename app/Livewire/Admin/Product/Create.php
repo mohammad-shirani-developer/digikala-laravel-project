@@ -6,12 +6,11 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Seller;
-use App\Repositories\ProductRepositoryInterface;
-use Illuminate\Support\Facades\File;
+use App\Repositories\Admin\AdminProductRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Validate;
+
 use Livewire\WithFileUploads;
 
 class Create extends Component
@@ -36,7 +35,7 @@ class Create extends Component
     private $repository;
 
 
-    public function boot(ProductRepositoryInterface $repository)
+    public function boot(AdminProductRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
