@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\City;
 
 use App\Models\City;
 use App\Models\State;
+use App\Repositories\Admin\AdminCityRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,13 +18,21 @@ class Index extends Component
     public $cityId;
     public $stateId;
 
+    private $repository;
+
+
+    public function boot(AdminCityRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
 
     public function mount()
     {
         $this->staes = State::all();
     }
 
-    public function submit($FormData, City $city)
+    public function submit($FormData)
     {
 
 
@@ -38,7 +47,7 @@ class Index extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $city->submit($FormData, $this->cityId);
+        $this->repository->submit($FormData, $this->cityId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Country;
 
 use App\Models\Country;
+use App\Repositories\Admin\AdminCountryRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,7 +15,15 @@ class Index extends Component
     public $name;
     public $countryId;
 
-    public function submit($FormData, Country $country)
+    private $repository;
+
+
+    public function boot(AdminCountryRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function submit($FormData)
     {
 
         $validator = Validator::make($FormData, [
@@ -26,7 +35,7 @@ class Index extends Component
         ]);
         $validator->validate();
         $this->resetValidation();
-        $country->submit($FormData, $this->countryId);
+        $this->repository->submit($FormData, $this->countryId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }
