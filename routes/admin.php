@@ -8,6 +8,7 @@ use App\Livewire\Admin\Category\Index as categoryIndex;
 use App\Livewire\Admin\Category\Features;
 use App\Livewire\Admin\Category\FeatureValue;
 use App\Livewire\Admin\Delivery\Index as deliveryIndex;
+use App\Livewire\Admin\Payment\Index as paymentIndex;
 use App\Livewire\Admin\Product\CkUpload;
 use App\Livewire\Admin\Product\Content;
 use App\Livewire\Admin\Product\Create;
@@ -35,4 +36,6 @@ Route::name('admin.')->group(function () {
     Route::post('/ck-upload,{productId}', [CkUpload::class, 'upload'])->name('ck-upload');
 
     Route::get('/delivery', deliveryIndex::class)->name('delivery.index');
+
+    Route::get('/payment', paymentIndex::class)->name('payment.index');
 });
