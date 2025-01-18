@@ -24,6 +24,8 @@ class User extends Authenticatable
         'mobile',
         'picture',
         'password',
+        'otp_code',
+        'login_token'
     ];
 
     /**

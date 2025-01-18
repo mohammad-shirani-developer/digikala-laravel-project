@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable()->unique();
             $table->string('mobile')->nullable()->unique();
+            $table->integer('otp_code')->nullable();
+            $table->string('login_token')->nullable();
             $table->string('picture')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();

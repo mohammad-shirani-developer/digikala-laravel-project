@@ -5,6 +5,7 @@
 /public/products
 /public/product
 /public/storage
+/public/client/assets
 /storage/*.key
 /storage/pail
 /vendor
