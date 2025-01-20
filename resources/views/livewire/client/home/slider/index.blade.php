@@ -1,4 +1,4 @@
-<div>
+<div x-intersect='initializeSwiper'>
     <section class="container-fluid p-0">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">

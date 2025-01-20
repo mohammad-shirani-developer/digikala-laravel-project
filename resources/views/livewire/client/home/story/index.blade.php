@@ -1,4 +1,4 @@
-<div>
+<div x-intersect='initializeSwiper'>
     <section class="container-fluid p-0 container-lg mt-4 story">
         <div class="d-flex py-2 py-lg-5 py-md-3 justify-content-center align-items-center">
             <div class="swiper myStorySwiper px-0">

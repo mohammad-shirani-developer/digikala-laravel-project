@@ -14,6 +14,7 @@ use App\Livewire\Admin\Product\Content;
 use App\Livewire\Admin\Product\Create;
 use App\Livewire\Admin\Product\Features as productFeatures;
 use App\Livewire\Admin\Product\Index as productIndex;
+use App\Livewire\Admin\Story\Index as storyIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function () {
@@ -38,4 +39,7 @@ Route::name('admin.')->group(function () {
     Route::get('/delivery', deliveryIndex::class)->name('delivery.index');
 
     Route::get('/payment', paymentIndex::class)->name('payment.index');
+
+
+    Route::get('/story', storyIndex::class)->name('story.index');
 });
