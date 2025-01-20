@@ -315,4 +315,27 @@ function initializeSwiper() {
         videoPlayer.pause(); // توقف ویدیو
         videoPlayer.currentTime = 0; // تنظیم ویدیو به ابتدای آن
     });
+
+    // به تمام دکمه‌های با ویژگی data-story event listener اضافه کنید
+    $(".story-item[data-story]").on("click", function () {
+        // دریافت URL ویدیو از data-story
+        var storyUrl = $(this).data("story");
+        var storyTitle = $(this).data("story-title");
+
+        // تنظیم URL به عنوان src تگ video
+        $("#videoSource").attr("src", storyUrl);
+        $(".modal-title").html(storyTitle);
+
+        // بارگذاری و پخش ویدیو
+        var videoPlayer = $("#videoPlayer").get(0);
+        videoPlayer.load();
+        videoPlayer.play();
+    });
+
+    // هنگامی که مدال بسته می‌شود
+    $("#storyModal").on("hide.bs.modal", function () {
+        var videoPlayer = $("#videoPlayer").get(0);
+        videoPlayer.pause(); // توقف ویدیو
+        videoPlayer.currentTime = 0; // تنظیم ویدیو به ابتدای آن
+    });
 }
