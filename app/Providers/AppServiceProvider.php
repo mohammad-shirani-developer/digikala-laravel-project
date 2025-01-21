@@ -22,6 +22,8 @@ use App\Repositories\Admin\AdminStoryRepository;
 use App\Repositories\Admin\AdminStoryRepositoryInterface;
 use App\Repositories\client\ClientAuthRepository;
 use App\Repositories\Client\ClientAuthRepositoryInterface;
+use App\Repositories\client\first_page\ClientFirstPageRepository;
+use App\Repositories\client\first_page\ClientFirstPageRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -45,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         $this->app->singleton(ClientAuthRepositoryInterface::class, ClientAuthRepository::class);
+        $this->app->singleton(ClientFirstPageRepositoryInterface::class, ClientFirstPageRepository::class);
     }
 
     /**
