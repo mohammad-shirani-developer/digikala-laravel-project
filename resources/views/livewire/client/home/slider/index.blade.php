@@ -2,38 +2,20 @@
     <section class="container-fluid p-0">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="3"
-                    aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="4"
-                    aria-label="Slide 5"></button>
-                <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="5"
-                    aria-label="Slide 6"></button>
+                @foreach ($sliders as $item)
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="{{ $loop->index }}"
+                        class="active" aria-current="true" aria-label="Slide {{ $loop->index + 1 }}"></button>
+                @endforeach
+
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/client/assets/slider/1.webp" class="d-block w-100" alt="..." />
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/client/assets/slider/2.webp" class="d-block w-100" alt="..." />
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/client/assets/slider/3.webp" class="d-block w-100" alt="..." />
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/client/assets/slider/4.webp" class="d-block w-100" alt="..." />
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="/client/assets/slider/5.webp" class="d-block w-100" alt="..." />
-                </div>
-                <div class="carousel-item active" data-bs-interval="3500">
-                    <img src="/client/assets/slider/6.gif" class="d-block w-100" alt="..." />
-                </div>
+                @foreach ($sliders as $item)
+                    <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}" data-bs-interval="2000">
+                        <img src="sliders/{{ $item->image }}" class="d-block w-100" alt="{{ $item->title }}"
+                            title="{{ $item->title }}" />
+                    </div>
+                @endforeach
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
                 data-bs-slide="prev">
