@@ -18,8 +18,6 @@ class Index extends Component
     public $parentId;
 
     private $repository;
-
-
     public function boot(AdminCategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -27,7 +27,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 11:57:47',
-                'updated_at' => '2025-01-07 11:57:47',
+                'updated_at' => '2025-01-21 05:25:16',
             ),
             1 => 
             array (
@@ -37,7 +37,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 11:57:47',
-                'updated_at' => '2025-01-07 11:57:47',
+                'updated_at' => '2025-01-21 05:25:16',
             ),
             2 => 
             array (
@@ -47,7 +47,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 11:57:47',
-                'updated_at' => '2025-01-07 11:57:47',
+                'updated_at' => '2025-01-21 05:25:16',
             ),
             3 => 
             array (
@@ -57,7 +57,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 11:57:47',
-                'updated_at' => '2025-01-07 11:57:47',
+                'updated_at' => '2025-01-21 05:25:16',
             ),
             4 => 
             array (
@@ -67,7 +67,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 11:57:47',
-                'updated_at' => '2025-01-07 11:57:47',
+                'updated_at' => '2025-01-21 05:25:16',
             ),
             5 => 
             array (
@@ -107,7 +107,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:05:52',
-                'updated_at' => '2025-01-07 12:05:52',
+                'updated_at' => '2025-01-21 05:26:01',
             ),
             9 => 
             array (
@@ -117,7 +117,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:05:52',
-                'updated_at' => '2025-01-07 12:05:52',
+                'updated_at' => '2025-01-21 05:26:01',
             ),
             10 => 
             array (
@@ -127,7 +127,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:05:52',
-                'updated_at' => '2025-01-07 12:05:52',
+                'updated_at' => '2025-01-21 05:26:01',
             ),
             11 => 
             array (
@@ -137,7 +137,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:05:52',
-                'updated_at' => '2025-01-07 12:05:52',
+                'updated_at' => '2025-01-21 05:26:01',
             ),
             12 => 
             array (
@@ -147,7 +147,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:05:52',
-                'updated_at' => '2025-01-07 12:05:52',
+                'updated_at' => '2025-01-21 05:26:01',
             ),
             13 => 
             array (
@@ -157,7 +157,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 4,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:08:50',
-                'updated_at' => '2025-01-07 12:08:50',
+                'updated_at' => '2025-01-21 05:24:45',
             ),
             14 => 
             array (
@@ -167,7 +167,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 4,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:08:50',
-                'updated_at' => '2025-01-07 12:08:50',
+                'updated_at' => '2025-01-21 05:24:45',
             ),
             15 => 
             array (
@@ -177,7 +177,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 4,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:08:50',
-                'updated_at' => '2025-01-07 12:08:50',
+                'updated_at' => '2025-01-21 05:24:45',
             ),
             16 => 
             array (
@@ -187,7 +187,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 4,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:08:50',
-                'updated_at' => '2025-01-07 12:08:50',
+                'updated_at' => '2025-01-21 05:24:45',
             ),
             17 => 
             array (
@@ -197,7 +197,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 5,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:11:13',
-                'updated_at' => '2025-01-07 12:11:13',
+                'updated_at' => '2025-01-21 05:24:17',
             ),
             18 => 
             array (
@@ -207,7 +207,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 5,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:11:13',
-                'updated_at' => '2025-01-07 12:11:13',
+                'updated_at' => '2025-01-21 05:24:17',
             ),
             19 => 
             array (
@@ -217,7 +217,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 5,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:11:13',
-                'updated_at' => '2025-01-07 12:11:13',
+                'updated_at' => '2025-01-21 05:24:17',
             ),
             20 => 
             array (
@@ -227,7 +227,7 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 5,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:11:13',
-                'updated_at' => '2025-01-07 12:11:13',
+                'updated_at' => '2025-01-21 05:24:17',
             ),
             21 => 
             array (
@@ -237,7 +237,167 @@ class ProductImagesTableSeeder extends Seeder
                 'product_id' => 5,
                 'deleted_at' => NULL,
                 'created_at' => '2025-01-07 12:11:13',
-                'updated_at' => '2025-01-07 12:11:13',
+                'updated_at' => '2025-01-21 05:24:17',
+            ),
+            22 => 
+            array (
+                'id' => 23,
+                'path' => 'qni4WD5IAEw3xm4YrPoou1HIpUfiZn7PY3rePewd.webp',
+                'is_cover' => 0,
+                'product_id' => 6,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:18:50',
+                'updated_at' => '2025-01-23 06:25:56',
+            ),
+            23 => 
+            array (
+                'id' => 24,
+                'path' => 'T36214pufrd9we7x99u1Pu0pbxi648UXhysPJG7A.webp',
+                'is_cover' => 0,
+                'product_id' => 6,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:18:50',
+                'updated_at' => '2025-01-23 06:25:56',
+            ),
+            24 => 
+            array (
+                'id' => 25,
+                'path' => 'pT7n0RT0oUk2Ffsvq8S5IJuohGbygv075ktMjJPP.webp',
+                'is_cover' => 1,
+                'product_id' => 6,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:18:50',
+                'updated_at' => '2025-01-23 06:25:56',
+            ),
+            25 => 
+            array (
+                'id' => 26,
+                'path' => 'Z84pW85MB8QHr53fxtYE8vqoLOvkOwSGziK7UWc0.webp',
+                'is_cover' => 0,
+                'product_id' => 6,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:18:50',
+                'updated_at' => '2025-01-23 06:25:56',
+            ),
+            26 => 
+            array (
+                'id' => 27,
+                'path' => 'CAXHSUQxH3z8LGvjR1QOySfjCnTNYv2bOHFf2O9Q.webp',
+                'is_cover' => 0,
+                'product_id' => 6,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:18:50',
+                'updated_at' => '2025-01-23 06:25:56',
+            ),
+            27 => 
+            array (
+                'id' => 28,
+                'path' => 'XxjUtvZ3HEcC2OtsYShAbAREuQQdFpLfr9ddtj8Y.webp',
+                'is_cover' => 1,
+                'product_id' => 7,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:21:16',
+                'updated_at' => '2025-01-21 05:21:16',
+            ),
+            28 => 
+            array (
+                'id' => 29,
+                'path' => '7e2qojjDTLIjAaX1OPdZXmwqjE16lrdbDDepjbrG.webp',
+                'is_cover' => 0,
+                'product_id' => 7,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:21:16',
+                'updated_at' => '2025-01-21 05:21:16',
+            ),
+            29 => 
+            array (
+                'id' => 30,
+                'path' => 'xOq88TmnVJdSkgkjumVkDJ6S8ruR8PBdwt6NRBit.webp',
+                'is_cover' => 0,
+                'product_id' => 7,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:21:16',
+                'updated_at' => '2025-01-21 05:21:16',
+            ),
+            30 => 
+            array (
+                'id' => 31,
+                'path' => 'gsDzf9REfXwIeJWWSrfcquR6f0NX2Q2hy0Dld5xH.webp',
+                'is_cover' => 0,
+                'product_id' => 7,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:21:16',
+                'updated_at' => '2025-01-21 05:21:16',
+            ),
+            31 => 
+            array (
+                'id' => 32,
+                'path' => 'J52cHoY2lKjCzcpmOi4qgLzzYItSIyFjNSSbK3Jt.webp',
+                'is_cover' => 0,
+                'product_id' => 7,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:21:16',
+                'updated_at' => '2025-01-21 05:21:16',
+            ),
+            32 => 
+            array (
+                'id' => 33,
+                'path' => '7yfVwMo3c04ba9naEsWK8OPTcLmcS4PVeZ6CBLI3.webp',
+                'is_cover' => 0,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
+            ),
+            33 => 
+            array (
+                'id' => 34,
+                'path' => 'Y585a16D1uHnwGT3jrEpxe75TPGqbAC6hzrB7meH.webp',
+                'is_cover' => 0,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
+            ),
+            34 => 
+            array (
+                'id' => 35,
+                'path' => 'rJa0pRzSkg2sFOmKjesICUkdzAlrNDnAcHV2qB6t.webp',
+                'is_cover' => 0,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
+            ),
+            35 => 
+            array (
+                'id' => 36,
+                'path' => '20lmo8OFy53X0o7izv5Ds5J0YFjHtYClRMdeP8dd.webp',
+                'is_cover' => 1,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
+            ),
+            36 => 
+            array (
+                'id' => 37,
+                'path' => 't3B3J3cLWUKo15ZAKsORv9ecLelgPM5xGUD0FfD0.webp',
+                'is_cover' => 0,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
+            ),
+            37 => 
+            array (
+                'id' => 38,
+                'path' => 'oLgCk1isbV7PL42BTNn7XtUzulvazoZ127zU1SJ3.webp',
+                'is_cover' => 0,
+                'product_id' => 8,
+                'deleted_at' => NULL,
+                'created_at' => '2025-01-21 05:23:26',
+                'updated_at' => '2025-01-23 06:24:23',
             ),
         ));
         

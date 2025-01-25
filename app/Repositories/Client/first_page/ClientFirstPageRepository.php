@@ -15,6 +15,7 @@ class ClientFirstPageRepository implements ClientFirstPageRepositoryInterface
             ->where('discount_duration', '>', $userVisitDate)
             ->where('featured', true)
             ->select('id', 'price', 'name', 'discount', 'p_code')
+            ->with('coverImage', 'seoItem')
             ->get();
 
         return $featuredProducts->map(function ($product) {

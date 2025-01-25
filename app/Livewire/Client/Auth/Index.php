@@ -10,6 +10,7 @@ use App\Repositories\client\ClientAuthRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 use Livewire\Component;
@@ -99,6 +100,13 @@ class Index extends Component
         $gmailUser = Socialite::driver('google')->stateless()->user();
         $repository->checkUser($gmailUser);
         return redirect()->route('client.home');
+    }
+
+    public function clientAuth()
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect()->route('client.auth.index');
     }
 
     public function render()

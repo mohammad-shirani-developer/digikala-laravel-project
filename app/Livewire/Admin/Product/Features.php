@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Product;
 
+use App\Models\Category;
 use App\Models\CategoryFeature;
 use App\Models\Product;
 use App\Models\ProductFeatureValue;
@@ -25,8 +26,9 @@ class Features extends Component
     public function mount(Product $product)
     {
         $categoryId = $product->category_id;
+        $category = Category::query()->find($categoryId);
         $this->productId = $product->id;
-        $this->features = CategoryFeature::query()->where('category_id', $categoryId)->get();
+        $this->features = CategoryFeature::query()->where('category_id', $category->parent->id)->get();
     }
 
     public function submit($FormData)

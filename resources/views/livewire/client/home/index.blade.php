@@ -1,4 +1,5 @@
 <div>
+
     <!-- === Story section === -->
     <livewire:client.home.story.index lazy />
 

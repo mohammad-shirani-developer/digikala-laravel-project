@@ -33,8 +33,8 @@
             <div class="swiper mySwiper w-100" id="product">
                 <div class="swiper-wrapper">
                     @foreach ($featuredProducts as $item)
-                        <a href="./products/{{ $item->id }}/medium/{{ $item->coverImage->path }}"
-                            class="swiper-slide text-black">
+                        <a href="{{ route('client.product', $item->p_code) }}/{{ $item->seoItem->slug }}"
+                            class="swiper-slide">
                             <div>
                                 <img src="./products/{{ $item->id }}/medium/{{ $item->coverImage->path }}"
                                     alt="slide-img" />
@@ -50,12 +50,13 @@
                             </div>
                         </a>
                     @endforeach
-
-
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+
+
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-    </section>
+</div>
+</section>
 </div>
