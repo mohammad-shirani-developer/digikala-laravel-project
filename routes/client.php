@@ -10,12 +10,21 @@ Route::name('client.')->group(function () {
     Route::get('/',  homeIndex::class)->name('home');
     Route::get('/product/{p_code}/{slug?}',  productIndex::class)->name('product');
 
-    Route::get('/auth',  authIndex::class)->name('auth.index')->middleware('guest');
-    Route::get('/gmail',  [authIndex::class, 'redirectToProvider'])->name('gmail')->middleware('guest');
-    Route::get('/auth/gmail/callback',  [authIndex::class, 'handelProviderCallback'])->name('gmail.callback')->middleware('guest');
+    
+    Route::middleware('guest')->group(function(){
+        Route::get('/auth',  authIndex::class)->name('auth.index');
+        Route::get('/gmail',  [authIndex::class, 'redirectToProvider'])->name('gmail');
+        Route::get('/auth/gmail/callback',  [authIndex::class, 'handelProviderCallback'])->name('gmail.callback');
+    });
+
+   
     
     
     
-    Route::get('/logout',  [authIndex::class, 'clientAuth'])->name('logout')->middleware('auth');
-    Route::get('/checkout/cart',  cartIndex::class)->name('checkout.cart')->middleware('auth');
+Route::middleware('auth')->group(function(){
+    Route::get('/logout',  [authIndex::class, 'clientAuth'])->name('logout');
+    Route::get('/checkout/cart',  cartIndex::class)->name('checkout.cart');
+});
+
+   
 });
