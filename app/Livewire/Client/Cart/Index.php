@@ -10,6 +10,7 @@ class Index extends Component
 {
 
     public $cartItems = [];
+    public $invoice = [];
 
     public function mount()
     {
@@ -31,6 +32,14 @@ class Index extends Component
 
                 return $item;
             });
+
+        $this->invoice = [
+            'totalProductCount'=>$this->cartItems->count(),
+            'totalOriginalPrice' => $this->cartItems->sum('originalPrice'),
+            'totalDiscount' => $this->cartItems->sum('discounAmoun'),
+            'totalDiscountedPrice' => $this->cartItems->sum('discountedPrice'),
+        ];
+
     }
 
     public function render()
