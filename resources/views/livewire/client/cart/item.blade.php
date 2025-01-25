@@ -35,14 +35,23 @@
             <div class="cart-item__footer d-flex align-items-center mt-3">
                 <!-- counter -->
                 <div class="cart-counter">
-                    <button class="cart-counter__add">
-                        <i class="fa fa-plus"></i>
+                    <button {{ $outOfStock ? 'disable' : '' }}
+                        class=" {{ $outOfStock ? 'btn-disable' : '' }} cart-counter__add">
+                        <i class="fa fa-plus" wire:click='updateCartQuantity({{ $item->id }},"increment")'></i>
                     </button>
 
                     <span class="cart-counter__number">{{ $item->quantity }}</span>
-                    <button class="cart-counter__remove">
-                        <i class="fa fa-trash"></i>
-                    </button>
+
+                    @if ($item->quantity == 1)
+                        <button class="cart-counter__remove">
+                            <i class="fa fa-trash" wire:click='updateCartQuantity({{ $item->id }},"decrement")'></i>
+                        </button>
+                    @else
+                        <button class="cart-counter__remove">
+                            <i class="fa fa-dash" wire:click='updateCartQuantity({{ $item->id }},"decrement")'></i>
+                        </button>
+                    @endif
+
                 </div>
                 <!-- product price -->
                 <div class="cart-item__footer-price">

@@ -11,9 +11,36 @@ class Index extends Component
 
     public $cartItems = [];
     public $invoice = [];
+    public $outOfStock = false;
 
-    public function mount()
+    public function updateCartQuantity($itemId, $action)
     {
+        $cartItem = Cart::query()->where('id', $itemId)
+            ->with('product:id,stock')
+            ->first();
+
+        if (!$cartItem) {
+            return 'محصول مورد نظر در سبد خرید یافت نشد';
+        }
+
+        if ($action == 'increment') {
+            if ($cartItem->quantity < $cartItem->product->stock) {
+                $cartItem->increment('quantity');
+            } else {
+                $this->outOfStock = true;
+            }
+        } elseif ($action == 'decrement') {
+            $cartItem->decrement('quantity');
+
+            if ($cartItem->quantity < 1) {
+                $cartItem->delete();
+            }
+        }
+    }
+
+    public function render()
+    {
+
         $this->cartItems = Cart::query()->where('user_id', Auth::id())
             ->with('product:id,name,price,discount,stock,seller_id,p_code,featured')
             ->get()
@@ -34,16 +61,12 @@ class Index extends Component
             });
 
         $this->invoice = [
-            'totalProductCount'=>$this->cartItems->count(),
+            'totalProductCount' => $this->cartItems->count(),
             'totalOriginalPrice' => $this->cartItems->sum('originalPrice'),
             'totalDiscount' => $this->cartItems->sum('discounAmoun'),
             'totalDiscountedPrice' => $this->cartItems->sum('discountedPrice'),
         ];
 
-    }
-
-    public function render()
-    {
         return view('livewire.client.cart.index')->layout('layouts.client.app-v2');
     }
 }

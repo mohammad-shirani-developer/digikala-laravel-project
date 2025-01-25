@@ -1,10 +1,11 @@
 <div>
     <section class="d-flex cart-container">
         <!-- cart-right -->
-        <livewire:client.cart.item :cartItems='$cartItems' />
+        @include('livewire.client.cart.item')
 
         <!-- cart-left -->
-        <livewire:client.cart.invoice :invoice='$invoice' />
+        @include('livewire.client.cart.invoice')
+
 
     </section>
 </div>
