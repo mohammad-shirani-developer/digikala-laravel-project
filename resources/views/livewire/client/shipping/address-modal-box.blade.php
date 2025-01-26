@@ -1,44 +1,58 @@
-<div id="addressModal" class="modal addressModal">
+<div id="addressModal" class="modal addressModal" wire:ignore.self>
     <div class="modal-content">
         <div class=" modal-header d-flex align-items-center justify-content-between pb-2">
             <h2>ویرایش آدرس</h2>
             <span class="close-btn">&times;</span>
         </div>
-        <form id="addressForm">
+        <form id="addressForm" wire:submit="submit(Object.fromEntries(new FormData($event.target)))">
             <div class="field-wrapper">
                 <label for="address">نشانی پستی</label>
                 <textarea name="address" id="address" rows="3"></textarea>
+                @error('address')
+                <span class="validation-error"> {{$message}}. </span>
+                @enderror
             </div>
             <hr>
             <div>
                 <div class="row">
                     <div class="col-md-6 col-lg-6 col-sm-12 field-wrapper">
-                        <label for="province">خیابان:</label>
-                        <select id="province" name="province">
-                            <option>آذربایجان غربی</option>
-                            <option>آذربایجان شرقی</option>
+                        <label for="province">استان:</label>
+                        <select id="province" name="province" wire:change="getCity($event.target.value)">
+                            @foreach ($provinces as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
+                        @error('province')
+                        <span class="validation-error"> {{$message}}. </span>
+                        @enderror
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 field-wrapper">
                         <label for="city">شهر:</label>
                         <select id="city" name="city">
-                            <option>ارومیه</option>
-                            <option>تبریز</option>
+                            @foreach ($cities as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
+                        @error('city')
+                        <span class="validation-error"> {{$message}}. </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-lg-3 col-sm-12 field-wrapper">
-                        <label for="number">پلاک:</label>
-                        <input type="text" id="number" name="number" required>
-                    </div>
-                    <div class="col-md-6 col-lg-3 col-sm-12 field-wrapper">
-                        <label for="floor">واحد:</label>
-                        <input type="text" id="floor" name="floor" required>
-                    </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 field-wrapper">
                         <label for="postalCode">کدپستی:</label>
-                        <input type="text" id="postalCode" name="postalCode" required>
+                        <input type="text" id="postalCode" name="postalCode" >
+                        @error('postalCode')
+                        <span class="validation-error"> {{$message}}. </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-sm-12 field-wrapper">
+                        <label for="mobile">موبایل:</label>
+                        <input wire:model="mobile" type="text" id="mobile" name="mobile" placeholder="09******">
+                        @error('mobile')
+                        <span class="validation-error"> {{$message}}. </span>
+                        @enderror
                     </div>
                 </div>
 

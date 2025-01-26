@@ -24,6 +24,12 @@
     font-size: 1.1rem;
 }
 
+.validation-error {
+    color: var(--primary-color);
+    display: block;
+    padding-top: .5rem;
+}
+
 .shipping-address,
 .shipping-type {
     padding: 1rem;

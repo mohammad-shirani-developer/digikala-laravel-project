@@ -3,23 +3,77 @@
 namespace App\Livewire\Client\Shipping;
 
 use App\Models\Address;
+use App\Models\City;
 use App\Models\DeliveryMethod;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class Index extends Component
 {
     public $deliveries = [];
     public $addressList = [];
+    public $addressId = 0;
+    public $provinces = [];
+    public $cities = [];
 
     public function mount()
     {
         $this->deliveries = DeliveryMethod::all();
-        $this->addressList=Address::query()->where('user_id',Auth::id())->get();
+    }
+
+    public function submit($FormData)
+    {
+        $validator = Validator::make($FormData, [
+            'address' => 'required|string|min:10|max:100',
+            'province' => 'required|exists:states,id',
+            'city' => 'required|exists:cities,id',
+            'postalCode' => ['required', 'regex:/^[1-9][0-9]{9}$/'],
+            'mobile' => ['required', 'regex:/^09[0-9]{9}$/'],
+        ], [
+            '*.required' => 'فیلد ضروری است.',
+            '*.string' => 'فرمت اشتباه است !',
+            '*.max' => 'حداکثر تعداد کاراکترها : 100',
+            '*.min' => 'حداکثر تعداد کاراکترها : 10',
+            'province.exists' => 'استان نامعتبر است .',
+            'city.exists' => 'شهر نامعتبر است .',
+            'postalCode.regex' => 'کد پستی باید یک عدد ۱۰ رقمی باشد که با صفر شروع نشود.',
+            'mobile.regex' => 'شماره موبایل باید با 09 شروع شود و دقیقاً 11 رقم باشد.',
+        ]);
+        $validator->validate();
+        $this->resetValidation();
+        Address::query()->updateOrCreate([
+            'id' => $this->addressId,
+        ], [
+            'mobile' => $FormData['mobile'],
+            'address' => $FormData['address'],
+            'state_id' => $FormData['province'],
+            'city_id' => $FormData['city'],
+           'country_id'=>1,
+            'postal_code' => $FormData['postalCode'],
+            'user_id'=>Auth::id()
+        ]);
+
+        // $this->repository->submit($FormData, $this->cityId);
+        // $this->reset();
+        $this->dispatch('close-modal');
+    }
+
+    public function getProvinces()
+    {
+    $this->provinces=State::all();
+    }
+
+    public function getCity($value)
+    {
+    $this->cities=City::query()->where('state_id',$value)->get();
     }
 
     public function render()
     {
+        $this->addressList = Address::query()->where('user_id', Auth::id())->latest()->get();
+
         return view('livewire.client.shipping.index')->layout('layouts.client.app-v2');
     }
 }

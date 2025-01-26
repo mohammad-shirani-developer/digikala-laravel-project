@@ -5,7 +5,7 @@
                 آدرس های شما :
             </span>
             <div class="add-new-address d-flex justify-content-end">
-                <button class="d-flex align-items-center  openModalBtn ">
+                <button class="d-flex align-items-center  openModalBtn " wire:click='getProvinces'>
                     <i class="fa fa-plus ml-2"></i>
                     افزودن آدرس جدید
 
