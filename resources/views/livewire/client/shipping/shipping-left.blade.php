@@ -10,10 +10,10 @@
         </form>
         <div class="d-flex align-items-center mb-3 justify-content-between">
             <span>
-                قیمت کالاها (۱)
+                قیمت کالاها ({{ $totalProductCount }})
             </span>
             <span>
-                ۱,۶۵۶,۰۰۰
+               {{number_format($totalOriginalPrice)}}
                 تومان
 
             </span>
@@ -23,7 +23,7 @@
                 هزینه ارسال
             </span>
             <span>
-                ۵۹,۰۰۰
+                {{ number_format($deliveryPrice) }}
                 تومان
 
             </span>
@@ -36,7 +36,7 @@
             </span>
             <span>
                 (۵٪)
-                ۱۵۶,۰۰۰
+                {{number_format($totalDiscount)}}
 
                 تومان
 
@@ -48,7 +48,7 @@
 
             </span>
             <span>
-                ۱,۷۱۵,۰۰۰
+                {{number_format($totalAmount)}}
                 تومان
 
             </span>

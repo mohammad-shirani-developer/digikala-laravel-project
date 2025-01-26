@@ -5,6 +5,7 @@ namespace App\Repositories\client\cart;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ClientCartRepository implements ClientCartRepositoryInterface
 {
@@ -62,6 +63,9 @@ class ClientCartRepository implements ClientCartRepositoryInterface
             'totalDiscount' => $cartItems->sum('discounAmoun'),
             'totalDiscountedPrice' => $cartItems->sum('discountedPrice'),
         ];
+
+        //for using in the shipping
+        Session::put('invoiceFromCart',$invoice);
 
         return compact('cartItems', 'invoice');
     }

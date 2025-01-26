@@ -5,7 +5,7 @@
                 آدرس های شما :
             </span>
             <div class="add-new-address d-flex justify-content-end">
-                <button class="d-flex align-items-center  openModalBtn " wire:click='getProvinces'>
+                <button class="d-flex align-items-center  openModalBtn " wire:click='getProvinces("add")'>
                     <i class="fa fa-plus ml-2"></i>
                     افزودن آدرس جدید
 
@@ -13,7 +13,7 @@
             </div>
         </div>
         @foreach ($addressList as $item)
-            <div class="shipping-address__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}">
+            <div class="shipping-address__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}" wire:ignore.self>
                 <i class="fa-light fa-location-dot ml-3 fs-4"></i>
                 <div class="shipping-address__details">
                     <span class="d-block">
@@ -34,12 +34,12 @@
 
     </div>
 
-    <div class="shipping-type ">
+    <div class="shipping-type " wire:ignore>
         <span class="fs-5 fw-bold mb-3 d-block">
             نحوه ارسال :
         </span>
         @foreach ($deliveries as $item)
-            <div class="shipping-type__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}">
+            <div class="shipping-type__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}" wire:click='changeDeliveryPrice({{ $item->id }})'>
                 <i class="fa fa-truck ml-3"></i>
                 <div class="">
                     {{ $item->name }}
