@@ -7,11 +7,16 @@
     <title>Digikala - cart</title>
     <link rel="stylesheet" href="/client/assets-v2/css/fontawesome.css" />
     <link rel="stylesheet" href="/client/assets-v2/css/main.css" />
-    <link rel="stylesheet" href="/client/assets-v2/css/cart.css" />
+    @stack('link')
+
+    @php
+        $routeNmae=Route::currentRouteName();
+    @endphp
 </head>
 
 <body>
-    <!-- Header -->
+    @if ($routeNmae !='client.shipping')
+         <!-- Header -->
     <header class="header">
         <div class="container pt-2 pb-2">
             <div class="d-flex">
@@ -116,6 +121,8 @@
       </nav> -->
         </div>
     </header>
+    @endif
+   
 
     <main class="container-md">
 
@@ -123,7 +130,8 @@
       
     </main>
 
-    <!-- footer -->
+    @if ($routeNmae !='client.shipping')
+           <!-- footer -->
     <footer class="footer">
         <div class="container">
             <div class="mt-5 mb-5">
@@ -282,6 +290,9 @@
             </div>
         </div>
     </footer>
+    @endif
+ 
+    @stack('script')
 </body>
 
 </html>
