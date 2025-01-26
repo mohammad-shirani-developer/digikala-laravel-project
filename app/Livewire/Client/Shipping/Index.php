@@ -18,6 +18,14 @@ class Index extends Component
     public $provinces = [];
     public $cities = [];
 
+    //Edit address properties
+
+    public $address = '';
+    public $city = '';
+    public $province = '';
+    public $postalCode = '';
+    public $mobile = '';
+
     public function mount()
     {
         $this->deliveries = DeliveryMethod::all();
@@ -50,24 +58,41 @@ class Index extends Component
             'address' => $FormData['address'],
             'state_id' => $FormData['province'],
             'city_id' => $FormData['city'],
-           'country_id'=>1,
+            'country_id' => 1,
             'postal_code' => $FormData['postalCode'],
-            'user_id'=>Auth::id()
+            'user_id' => Auth::id()
         ]);
 
         // $this->repository->submit($FormData, $this->cityId);
-        // $this->reset();
+        $this->reset();
         $this->dispatch('close-modal');
     }
 
     public function getProvinces()
     {
-    $this->provinces=State::all();
+        $this->provinces = State::all();
     }
 
     public function getCity($value)
     {
-    $this->cities=City::query()->where('state_id',$value)->get();
+        $this->cities = City::query()->where('state_id', $value)->get();
+    }
+
+    public function editAddress($addressId)
+    {
+        $this->addressId=$addressId;
+        $addressDetails=Address::query()->where('id',$addressId)->first();
+        if($addressDetails){
+            $this->address=$addressDetails->address;
+            $this->mobile=$addressDetails->mobile;
+            $this->postalCode=$addressDetails->postal_code;
+            $this->getProvinces();
+            $this->province=$addressDetails->state_id;
+            $this->getCity($this->province);
+            $this->city=$addressDetails->city_id;
+
+        }
+
     }
 
     public function render()
