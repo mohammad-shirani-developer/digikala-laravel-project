@@ -4,8 +4,10 @@ namespace App\Livewire\Client\Shipping;
 
 use App\Models\Address;
 use App\Models\City;
+use App\Models\Coupon;
 use App\Models\DeliveryMethod;
 use App\Models\State;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +41,8 @@ class Index extends Component
 
     public $discountCodeAmount = 0;
 
+    public $showDiscountcode=false;
+
     public function mount()
     {
         if (Session::get('invoiceFromCart')) {
@@ -57,7 +61,7 @@ class Index extends Component
 
     public function totalAmountForPayment($totalDiscountedPrice, $deliveryPrice, $discountCodeAmount)
     {
-        $this->totalAmount = $totalDiscountedPrice + $deliveryPrice + $discountCodeAmount;
+        $this->totalAmount = ($totalDiscountedPrice + $deliveryPrice) - $discountCodeAmount;
     }
 
     public function changeDeliveryPrice($deliveryId)
@@ -129,6 +133,50 @@ class Index extends Component
             $this->getCity($this->province);
             $this->city = $addressDetails->city_id;
         }
+    }
+
+    public function checkDiscountCode($FormData)
+    {
+        $validator = Validator::make($FormData, [
+            'code' => 'required|string|exists:coupons,code|min:4|max:6',
+
+        ], [
+            '*.required' => 'فیلد ضروری است.',
+            '*.string' => 'فرمت اشتباه است !',
+            '*.max' => 'حداکثر تعداد کاراکترها : 6',
+            '*.min' => 'حداکثر تعداد کاراکترها : 4',
+            'code.exists' => 'کد نامعتبر است .',
+
+
+        ]);
+
+        $validator->validate();
+        $this->resetValidation();
+
+        $code = Coupon::query()->where('code', $FormData['code'])->first();
+
+        $this->applyDiscount($code);
+    }
+
+    public function applyDiscount($code)
+    {
+        if (!$code->is_active || Carbon::parse($code->expires_at)->isPast()) {
+            session()->flash('error', '.این کد معتبر نیست یا منقضی شده است');
+            return;
+        }
+
+        if ($this->totalAmount < $code->min_purchase || $code->limit <= 0) {
+            session()->flash('error', 'شرایط استفاده از این کد تخفیف برقرار نیست');
+            return;
+        }
+
+        $this->discountCodeAmount = $discount = $code->type == 'percent' ? ($this->totalDiscountedPrice *  $code->value) / 100 : $code->value;
+
+        $this->totalAmountForPayment($this->totalDiscountedPrice, $this->deliveryPrice, $discount);
+
+        $this->showDiscountcode=true;
+
+        session()->flash('success', 'کد با موفقیت اعمال شد');
     }
 
     public function render()

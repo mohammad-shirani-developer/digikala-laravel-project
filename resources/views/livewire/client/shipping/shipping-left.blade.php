@@ -1,11 +1,26 @@
 <div class="shipping-left">
     <div class="final-invoice">
-        <form class="discount-code mb-3">
+        <form wire:submit="checkDiscountCode(Object.fromEntries(new FormData($event.target)))" class="discount-code mb-3">
             <span class="mb-1 d-block">کد تحفیف</span>
             <div class=" d-flex justify-content-between">
-                <input type="text" name="code">
+                <input type="text" name="code" wire:model='code'>
                 <button>ثبت</button>
             </div>
+            @error('code')
+                <span class="validation-error">{{ $message }}</span>
+            @enderror
+
+            @if (session()->has('success'))
+                <span class="validation-error">
+                    {{ session('success') }}
+                </span>
+            @endif
+
+            @if (session()->has('error'))
+            <span class="validation-error">
+                {{ session('error') }}
+            </span>
+        @endif
 
         </form>
         <div class="d-flex align-items-center mb-3 justify-content-between">
@@ -13,7 +28,7 @@
                 قیمت کالاها ({{ $totalProductCount }})
             </span>
             <span>
-               {{number_format($totalOriginalPrice)}}
+                {{ number_format($totalOriginalPrice) }}
                 تومان
 
             </span>
@@ -31,24 +46,32 @@
         <div class="d-flex  align-items-center mb-3 justify-content-between">
             <span>
                 سود شما از خرید
-
-
             </span>
             <span>
-                (۵٪)
-                {{number_format($totalDiscount)}}
-
+                {{ number_format($totalDiscount) }}
                 تومان
-
             </span>
         </div>
+
+        @if ($showDiscountcode)
+        <div class="d-flex  align-items-center mb-3 justify-content-between">
+            <span>
+                کد تخفیف
+            </span>
+            <span>
+                {{ number_format($discountCodeAmount) }}
+                تومان
+            </span>
+        </div>
+            
+        @endif
         <div class="d-flex df align-items-center mb-3 justify-content-between">
             <span>
                 قابل پرداخت
 
             </span>
             <span>
-                {{number_format($totalAmount)}}
+                {{ number_format($totalAmount) }}
                 تومان
 
             </span>
