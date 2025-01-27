@@ -29,8 +29,7 @@ trait PaymentGetWay
         return redirect($startGateWayUrl);
     }
     else{
-        echo "errorCode: ".$response->result."<br>";
-        echo "message: ".$response->message;
+        Throw new \Exception('Error Code :'.$response->result.'--Message :'.$response->message);
     }
    }
 }
