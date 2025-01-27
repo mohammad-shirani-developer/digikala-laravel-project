@@ -76,7 +76,7 @@
 
             </span>
         </div>
-        <button class="addToBasket-btn w-100 p-2 fs-6 mt-2">
+        <button wire:click="submitOrder" class="addToBasket-btn w-100 p-2 fs-6 mt-2">
             ثبت سفارش
         </button>
     </div>

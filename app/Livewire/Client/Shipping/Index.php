@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Coupon;
 use App\Models\DeliveryMethod;
 use App\Models\State;
+use App\Traits\PaymentGetWay;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -15,6 +16,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    use PaymentGetWay;
     public $deliveries = [];
     public $addressList = [];
     public $addressId = 0;
@@ -45,6 +47,9 @@ class Index extends Component
 
     public function mount()
     {
+
+        
+
         if (Session::get('invoiceFromCart')) {
             $invoice = Session::get('invoiceFromCart');
             $this->totalProductCount = $invoice['totalProductCount'];
@@ -177,6 +182,11 @@ class Index extends Component
         $this->showDiscountcode=true;
 
         session()->flash('success', 'کد با موفقیت اعمال شد');
+    }
+
+    public function submitOrder()
+    {
+    $this->zibalRequest($this->totalAmount);
     }
 
     public function render()

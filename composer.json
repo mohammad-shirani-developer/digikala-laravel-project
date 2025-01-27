@@ -1,4 +1,4 @@
-{
+    {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
@@ -15,7 +15,8 @@
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
-        "orangehill/iseed": "^3.0"
+        "orangehill/iseed": "^3.0",
+        "ext-curl":"*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
