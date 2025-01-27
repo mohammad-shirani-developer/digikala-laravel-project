@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Client\Shipping;
 
+use App\Contracts\PaymentGetWayInterface;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\Coupon;
@@ -43,12 +44,12 @@ class Index extends Component
 
     public $discountCodeAmount = 0;
 
-    public $showDiscountcode=false;
+    public $showDiscountcode = false;
 
     public function mount()
     {
 
-        
+
 
         if (Session::get('invoiceFromCart')) {
             $invoice = Session::get('invoiceFromCart');
@@ -179,14 +180,14 @@ class Index extends Component
 
         $this->totalAmountForPayment($this->totalDiscountedPrice, $this->deliveryPrice, $discount);
 
-        $this->showDiscountcode=true;
+        $this->showDiscountcode = true;
 
         session()->flash('success', 'کد با موفقیت اعمال شد');
     }
 
-    public function submitOrder()
+    public function submitOrder(PaymentGetWayInterface $paymentGetWay)
     {
-    $this->zibalRequest($this->totalAmount);
+        return $paymentGetWay->request($this->totalAmount);
     }
 
     public function render()

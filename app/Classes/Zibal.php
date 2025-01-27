@@ -2,7 +2,7 @@
 
 namespace App\Classes;
 
-class Zibal
+class zibal
 {
 
     function postToZibal($path, $parameters)
