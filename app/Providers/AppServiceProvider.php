@@ -30,6 +30,7 @@ use App\Repositories\client\product\ClientProductRepository;
 use App\Repositories\client\product\ClientProductRepositoryInterface;
 use App\Repositories\Client\shipping\ClientShippingRepository;
 use App\Repositories\Client\shipping\ClientShippingRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -62,6 +63,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Carbon::setLocale('fa');
     }
 }

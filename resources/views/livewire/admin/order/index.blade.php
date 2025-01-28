@@ -29,10 +29,11 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">کد سفارش</th>
-                            <th scope="col">کاربر</th>
-                            <th scope="col">قیمت نهایی</th>
+                            <th width="50px" scope="col">#</th>
+                            <th width="150px" scope="col">کد سفارش</th>
+                            <th scope="col">تاریخ ثبت</th>
+                            <th width="300px" scope="col">کاربر</th>
+                            <th width="150px" scope="col" class="bg-danger text-center">قیمت نهایی</th>
                             <th scope="col" class="text-center">وضعیت</th>
                             <th class="text-center" scope="col">جزییات</th>
                         </tr>
@@ -46,6 +47,12 @@
                                 <td>
                                     {{ $order->order_number }}
                                 </td>
+
+                                <td>
+                                    {{ jalali($order->created_at)->format('d M Y | h:i') }}
+                                    <br>
+                                    {{ $order->created_at->diffForHumans() }}
+                                </td>
                               
                                 <td>
                                     {{@$order->user->name}}
@@ -55,7 +62,7 @@
                                     {{@$order->user->email}}
 
                                 </td>
-                                <td>{{ number_format($order->amount) }}</td>
+                                <td class="bg-danger text-center fs-5">{{ number_format($order->amount) }}</td>
                                 <td class="text-center">
                                     <select class="form-control">
                                         <option value="pending">pending</option>
