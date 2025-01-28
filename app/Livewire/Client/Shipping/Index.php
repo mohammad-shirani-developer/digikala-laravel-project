@@ -8,7 +8,7 @@ use App\Models\City;
 use App\Models\Coupon;
 use App\Models\DeliveryMethod;
 use App\Models\State;
-use App\Traits\PaymentGetWay;
+use App\Repositories\Client\shipping\ClientShippingRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +17,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use PaymentGetWay;
+    
     public $deliveries = [];
     public $addressList = [];
     public $addressId = 0;
@@ -39,12 +39,19 @@ class Index extends Component
     public $totalDiscountedPrice = 0;
 
     public $deliveryPrice = 0;
+    public $deliveryMethodId;
 
     public $totalAmount = 0;
 
     public $discountCodeAmount = 0;
 
     public $showDiscountcode = false;
+
+    private $repository;
+    public function boot(ClientShippingRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function mount()
     {
@@ -61,6 +68,7 @@ class Index extends Component
 
         $this->deliveries = DeliveryMethod::all();
         $this->deliveryPrice = $this->deliveries->first()->price;
+        $this->deliveryMethodId = $this->deliveries->first()->id;
 
         $this->totalAmountForPayment($this->totalDiscountedPrice, $this->deliveryPrice, $this->discountCodeAmount);
     }
@@ -70,8 +78,17 @@ class Index extends Component
         $this->totalAmount = ($totalDiscountedPrice + $deliveryPrice) - $discountCodeAmount;
     }
 
+    public function getAddressId($addressId)
+    {
+        $this->addressId = Address::query()->where([
+            'user_id' => Auth::id(),
+            'id' => $addressId
+        ])->first()->id;
+    }
+
     public function changeDeliveryPrice($deliveryId)
     {
+        $this->deliveryMethodId = $deliveryId;
         $this->deliveryPrice = DeliveryMethod::query()->where('id', $deliveryId)->pluck('price')->first();
         $this->totalAmountForPayment($this->totalDiscountedPrice, $this->deliveryPrice, $this->discountCodeAmount);
     }
@@ -185,14 +202,45 @@ class Index extends Component
         session()->flash('success', 'کد با موفقیت اعمال شد');
     }
 
+    //payment methods
+
+    public function checkQuantity($cartItem)
+    {
+        $this->repository->checkQuantity($cartItem);
+    }
+
+    public function createOrder($paymentMethodId, $orderNumber)
+    {
+     return  $this->repository->createOrder($paymentMethodId, $orderNumber,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
+    }
+
+    public function createOrderItems($cartItem, $orderId)
+    {
+     $this->repository->createOrderItems($cartItem, $orderId);
+    }
+
+    public function createPayment($orderId,$orderNumber)
+    {
+       $this->repository->createPayment($orderId,$orderNumber,$this->totalAmount);
+    }
+
+    public function submitOrderBeforPayment($cartItem, $paymentMethodId, $orderNumber)
+    {
+        $this->repository->submitOrderBeforPayment($cartItem, $paymentMethodId, $orderNumber,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
+
+       
+    }
+
     public function submitOrder(PaymentGetWayInterface $paymentGetWay)
     {
-        return $paymentGetWay->request($this->totalAmount);
+        $this->repository->submitOrder( $paymentGetWay,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
+       
     }
 
     public function render()
     {
-        $this->addressList = Address::query()->where('user_id', Auth::id())->latest()->get();
+        $addresList = $this->addressList = Address::query()->where('user_id', Auth::id())->latest()->get();
+        $this->addressId = $addresList->first()->id;
 
         return view('livewire.client.shipping.index')->layout('layouts.client.app-v2');
     }

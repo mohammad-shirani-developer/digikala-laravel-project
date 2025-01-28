@@ -4,12 +4,13 @@ namespace App\Servies\PaymentGatWay;
 
 use App\Classes\zibal as ClassesZibal;
 use App\Contracts\PaymentGetWayInterface;
+use App\Models\Payment;
 use App\Models\PaymentMethod;
 
 class Zibal implements PaymentGetWayInterface
 {
 
-    public function request($amount)
+    public function request($amount ,$orderNumber)
     {
         $zibal = new ClassesZibal();
 
@@ -18,7 +19,7 @@ class Zibal implements PaymentGetWayInterface
             "callbackUrl" => route('client.payment.callback'), //required
             "amount" => $amount * 10, //required
 
-            "orderId" => time(), //optional
+            "orderId" => $orderNumber, //optional
             "mobile" => "09120000000", //optional for mpg
         );
 
@@ -34,6 +35,10 @@ class Zibal implements PaymentGetWayInterface
 
     public function verify($request)
     {
+        session()->forget(['paymentSuccess', 'paymentError']);
+        $payment = Payment::query()->where('order_number', $request->orderId)->firstOrFail();
+        
+
         $zibal = new ClassesZibal();
 
         if ($_GET['success'] == 1) {
@@ -49,19 +54,42 @@ class Zibal implements PaymentGetWayInterface
             $response = $zibal->postToZibal('verify', $parameters);
 
             if ($response->result == 100) {
-                echo "<pre>"; //for pretty view :)
-                var_dump($response);
-                //update database or something else
-            } else {
-                throw new \Exception('result :' . $response->result . '--Message :' . $response->message);
+                //update payment table
+                $this->updatePayment($payment, $request);
+                //update order table
+                $this->updateOrder($payment);
+
+                $refNumber = $response->refnumber ?? 'نامشخص';
+                session()->flash('paymentSuccess', "$refNumber:پرداخت شما با موفقیت انجام شد. شماره تراکنش");
+            } elseif ($response->result == 201) {
+                session()->flash('paymentError', "تراکنش تکراریست.");
+
+
+                // throw new \Exception('result :' . $response->result . '--Message :' . $response->message);
             }
         } else {
-            echo "پرداخت با شکست مواجه شد.";
+            session()->flash('paymentError', "پرداخت با شکست مواجه شد.");
         }
     }
 
     public function getPaymentMethodId()
     {
-        return PaymentMethod::query()->where('name','=', 'Zibal')->pluck('id')->first();
+        return PaymentMethod::query()->where('name', '=', 'Zibal')->pluck('id')->first();
+    }
+
+    public function updatePayment($payment, $request)
+    {
+        $payment->update([
+            'status' => 'completed',
+            'refNumber' => $request->refNumber,
+            'cardNumber' => $request->cardNumber,
+        ]);
+    }
+
+    public function updateOrder($payment)
+    {
+        $payment->order()->update([
+            'status' => 'completed',
+        ]);
     }
 }

@@ -1,3 +1,10 @@
 <div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+    @if(session('paymentSuccess'))
+
+        <div> {{session('paymentSuccess')}}</div>
+    @endif
+    @if(session('paymentError'))
+
+        <div> {{session('paymentError')}}</div>
+    @endif
 </div>

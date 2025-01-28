@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 interface PaymentGetWayInterface
 {
-    public function request ($amount);
+    public function request ($amount,$orderNumber);
 
     public function verify ($request);
 

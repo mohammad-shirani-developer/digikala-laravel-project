@@ -28,6 +28,8 @@ use App\Repositories\client\first_page\ClientFirstPageRepository;
 use App\Repositories\client\first_page\ClientFirstPageRepositoryInterface;
 use App\Repositories\client\product\ClientProductRepository;
 use App\Repositories\client\product\ClientProductRepositoryInterface;
+use App\Repositories\Client\shipping\ClientShippingRepository;
+use App\Repositories\Client\shipping\ClientShippingRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -52,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ClientFirstPageRepositoryInterface::class, ClientFirstPageRepository::class);
         $this->app->singleton(ClientProductRepositoryInterface::class, ClientProductRepository::class);
         $this->app->singleton(ClientCartRepositoryInterface::class, ClientCartRepository::class);
+        $this->app->singleton(ClientShippingRepositoryInterface::class, ClientShippingRepository::class);
     }
 
     /**

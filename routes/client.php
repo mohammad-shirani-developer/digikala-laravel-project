@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/logout',  [authIndex::class, 'clientAuth'])->name('logout');
     Route::get('/checkout/cart',  cartIndex::class)->name('cart');
     Route::get('/checkout/shipping',  shippingIndex::class)->name('shipping');
-    Route::get('/payment/callback',  Callback::class)->name('payment.callback');
+    Route::get('/payment/callback', Callback::class)->name('payment.callback');
+
 });
 
    

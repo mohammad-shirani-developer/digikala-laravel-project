@@ -13,14 +13,14 @@
             <span>(1٪) {{ number_format($invoice['totalDiscount'])  }}تومان </span>
         </div>
 
-        <button class="addToBasket-btn w-100 d-md-none d-sm-none">
+        <a href="{{route('client.shipping')}}" class="addToBasket-btn w-100 d-md-none d-sm-none w-100 d-block text-center">
             تایید و تکمیل سفارش
-        </button>
+        </a>
 
         <div class="complete-order-mobile d-lg-none">
-            <button class="addToBasket-btn w-50 ">
+            <a href="{{route('client.shipping')}}" class="addToBasket-btn w-50 text-center">
                 تایید و تکمیل سفارش
-            </button>
+            </a>
             <div>
                 <span class="d-block">جمع سبد خرید</span>
                 <span>{{ number_format($invoice['totalDiscountedPrice']) }} تومان </span>

@@ -13,7 +13,7 @@
             </div>
         </div>
         @foreach ($addressList as $item)
-            <div class="shipping-address__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}" wire:ignore.self>
+            <div class="shipping-address__item d-flex align-items-center {{ $loop->first ? 'active' : '' }}" wire:ignore.self wire:click="getAddressId({{ $item->id }})">
                 <i class="fa-light fa-location-dot ml-3 fs-4"></i>
                 <div class="shipping-address__details">
                     <span class="d-block">
