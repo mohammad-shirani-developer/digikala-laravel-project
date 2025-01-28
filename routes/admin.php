@@ -8,6 +8,8 @@ use App\Livewire\Admin\Category\Index as categoryIndex;
 use App\Livewire\Admin\Category\Features;
 use App\Livewire\Admin\Category\FeatureValue;
 use App\Livewire\Admin\Delivery\Index as deliveryIndex;
+use App\Livewire\Admin\Order\Index as orderIndex;
+use App\Livewire\Admin\Order\Details as orderDetails;
 use App\Livewire\Admin\Payment\Index as paymentIndex;
 use App\Livewire\Admin\Product\CkUpload;
 use App\Livewire\Admin\Product\Content;
@@ -46,4 +48,8 @@ Route::name('admin.')->group(function () {
 
 
     Route::get('/slider', sliderIndex::class)->name('slider.index');
+
+    Route::get('/order', orderIndex::class)->name('order.index');
+    Route::get('/order/{orderId}', orderDetails::class)->name('order.details');
+
 });

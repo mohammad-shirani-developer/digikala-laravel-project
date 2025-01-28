@@ -120,74 +120,38 @@
             </li>
 
             <li class="menu">
-                <a href="#elements" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="#orders" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-zap">
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-zap">
                             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                         </svg>
                         <span>سفارشات</span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-chevron-right">
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-right">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="elements" data-bs-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled" id="orders" data-bs-parent="#accordionExample">
                     <li>
-                        <a href="./element-alerts.html"> Alerts </a>
+                        <a class="badge badge-light-warning" href="{{route('admin.order.index')}}"> کل سفارشات </a>
+                    </li>
+                    {{-- <li>
+                        <a class="badge badge-light-secondary" href="{{route('admin.order.index')}}?status=pending"> Pending </a>
                     </li>
                     <li>
-                        <a href="./element-avatar.html"> Avatar </a>
+                        <a class="badge badge-light-info" href="{{route('admin.order.index')}}?status=processing"> Processing </a>
                     </li>
                     <li>
-                        <a href="./element-badges.html"> Badges </a>
+                        <a class="badge badge-light-success" href="{{route('admin.order.index')}}?status=completed"> Completed </a>
                     </li>
                     <li>
-                        <a href="./element-breadcrumbs.html"> Breadcrumbs </a>
-                    </li>
-                    <li>
-                        <a href="./element-buttons.html"> Buttons </a>
-                    </li>
-                    <li>
-                        <a href="./element-buttons-group.html"> Button Groups </a>
-                    </li>
-                    <li>
-                        <a href="./element-color-library.html"> Color Library </a>
-                    </li>
-                    <li>
-                        <a href="./element-dropdown.html"> Dropdown </a>
-                    </li>
-                    <li>
-                        <a href="./element-infobox.html"> Infobox </a>
-                    </li>
-                    <li>
-                        <a href="./element-loader.html"> Loader </a>
-                    </li>
-                    <li>
-                        <a href="./element-pagination.html"> Pagination </a>
-                    </li>
-                    <li>
-                        <a href="./element-popovers.html"> Popovers </a>
-                    </li>
-                    <li>
-                        <a href="./element-progressbar.html"> Progress Bar </a>
-                    </li>
-                    <li>
-                        <a href="./element-search.html"> Search </a>
-                    </li>
-                    <li>
-                        <a href="./element-tooltips.html"> Tooltips </a>
-                    </li>
-                    <li>
-                        <a href="./element-treeview.html"> Treeview </a>
-                    </li>
-                    <li>
-                        <a href="./element-typography.html"> Typography </a>
+                        <a class="badge badge-light-danger" href="{{route('admin.order.index')}}?status=cancelled"> Cancelled </a> --}}
                     </li>
                 </ul>
             </li>
