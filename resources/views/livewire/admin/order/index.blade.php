@@ -18,7 +18,7 @@
         <div class="widget-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h4>لیست سفارشات </h4>
-                
+
 
 
             </div>
@@ -53,30 +53,36 @@
                                     <br>
                                     {{ $order->created_at->diffForHumans() }}
                                 </td>
-                              
+
                                 <td>
-                                    {{@$order->user->name}}
+                                    {{ @$order->user->name }}
                                     <br>
-                                    {{@$order->user->mobile}}
+                                    {{ @$order->user->mobile }}
                                     <br>
-                                    {{@$order->user->email}}
+                                    {{ @$order->user->email }}
 
                                 </td>
                                 <td class="bg-danger text-center fs-5">{{ number_format($order->amount) }}</td>
                                 <td class="text-center">
-                                    <select class="form-control">
-                                        <option value="pending">pending</option>
-                                        <option value="processing">processing</option>
-                                        <option value="completed">completed</option>
-                                        <option value="canceled">canceled</option>
+                                    <select class="form-control bg-{{ $order->statusColor }}"
+                                        wire:change="changeStatus({{ $order->id }},$event.target.value)">
+
+                                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
+                                            pending</option>
+                                        <option value="processing"
+                                            {{ $order->status == 'processing' ? 'selected' : '' }}>processing</option>
+                                        <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }}>
+                                            completed</option>
+                                        <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>
+                                            canceled</option>
                                     </select>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('admin.order.details',$order->id) }}"
-                                        class="btn btn-primary" data-toggle="tooltip"
-                                        data-placement="top" title="" data-bs-original-title="جزییات">
+                                    <a href="{{ route('admin.order.details', $order->id) }}" class="btn btn-primary"
+                                        data-toggle="tooltip" data-placement="top" title=""
+                                        data-bs-original-title="جزییات">
                                         جزییات سفارش
-                                       
+
                                     </a>
 
                                 </td>
