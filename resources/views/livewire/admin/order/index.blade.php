@@ -17,10 +17,10 @@
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h4>لیست سفارشات </h4>
-
-
-
+                <div class="d-flex">
+                    <h4>لیست سفارشات </h4>
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="جستجو" class="form-control">
+                </div>
             </div>
         </div>
         <div class="widget-content widget-content-area">
@@ -35,6 +35,7 @@
                             <th width="300px" scope="col">کاربر</th>
                             <th width="150px" scope="col" class="bg-danger text-center">قیمت نهایی</th>
                             <th scope="col" class="text-center">وضعیت</th>
+                            <th scope="col" class="text-center">وضعیت پرداخت</th>
                             <th class="text-center" scope="col">جزییات</th>
                         </tr>
                     </thead>
@@ -76,6 +77,9 @@
                                         <option value="canceled" {{ $order->status == 'canceled' ? 'selected' : '' }}>
                                             canceled</option>
                                     </select>
+                                </td>
+                                <td>
+                                    <span class="badge badge-{{ $order->statusPaymentColor }}">{{ $order->payment->status }}</span>
                                 </td>
                                 <td class="text-center">
                                     <a href="{{ route('admin.order.details', $order->id) }}" class="btn btn-primary"

@@ -11,6 +11,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    public $search;
+
     public function changeStatus(Order $order, $value)
     {
         $validator = Validator::make(['status' => $value, 'id' => $order->id], [
@@ -40,18 +42,28 @@ class Index extends Component
             case 'completed':
                 return 'success';
             case 'canceled':
-                return 'danger';        
+                return 'danger';
         }
     }
 
     public function render()
     {
-        $orders = Order::query()->with('user')->paginate(10);
+        $orders = Order::query()->with('user', 'payment')
+            ->when($this->search, function ($query) {
+                $query->where('order_number', 'Like', '%' . $this->search . '%')
+                    ->orWhereHas('user', function ($query) {
+                        $query->where('name', 'Like', '%' . $this->search . '%')
+                            ->orWhere('mobile', 'Like', '%' . $this->search . '%')
+                            ->orWhere('email', 'Like', '%' . $this->search . '%');
+                    });
+            })
+            ->paginate(10);
 
         $orders->getCollection()->transform(function ($order) {
             $parts = explode('-', $order->order_number);
             $order->order_number = $parts[2] ?? null;
-            $order->statusColor=$this->getStatusColor($order->status);
+            $order->statusColor = $this->getStatusColor($order->status);
+            $order->statusPaymentColor = $this->getStatusColor($order->payment->status);
             return $order;
         });
         return view('livewire.admin.order.index', [
