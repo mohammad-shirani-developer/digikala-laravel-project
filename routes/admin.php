@@ -18,6 +18,7 @@ use App\Livewire\Admin\Product\Features as productFeatures;
 use App\Livewire\Admin\Product\Index as productIndex;
 use App\Livewire\Admin\Slider\Index as sliderIndex;
 use App\Livewire\Admin\Story\Index as storyIndex;
+use App\Livewire\Admin\Transaction\Index as transactionIndex;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')->group(function () {
@@ -32,7 +33,7 @@ Route::name('admin.')->group(function () {
 
     // product
 
-    Route::get('/product/index', productIndex::class)->name('product.index');
+    Route::get('/product', productIndex::class)->name('product.index');
     Route::get('/product/create', Create::class)->name('product.create');
     Route::get('/product/feature/{product}', productFeatures::class)->name('product.features');
     Route::get('/product/content/{product}', Content::class)->name('product.content');
@@ -52,5 +53,6 @@ Route::name('admin.')->group(function () {
     Route::get('/order', orderIndex::class)->name('order.index');
     
     Route::get('/order/{order}', orderDetails::class)->name('order.details');
-
+    
+    Route::get('/transaction', transactionIndex::class)->name('transaction.index');
 });
