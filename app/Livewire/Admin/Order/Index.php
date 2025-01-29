@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Order;
 
 use App\Models\Order;
+use App\Repositories\Admin\AdminOrderRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,6 +13,15 @@ class Index extends Component
     use WithPagination;
 
     public $search;
+
+    private $repository;
+
+
+    public function boot(AdminOrderRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+
+    }
 
     public function changeStatus(Order $order, $value)
     {
@@ -34,44 +44,18 @@ class Index extends Component
 
     public function getStatusColor($status)
     {
-        switch ($status) {
-            case 'pending':
-                return 'primary';
-            case 'processing':
-                return 'info';
-            case 'completed':
-                return 'success';
-            case 'canceled':
-                return 'danger';
-        }
+        $this->repository->getStatusColor($status);
     }
 
     public function render()
     {
-        $orderQuery = Order::query()->with('user', 'payment')
-            ->when($this->search, function ($query) {
-                $query->where('order_number', 'Like', '%' . $this->search . '%')
-                    ->orWhereHas('user', function ($query) {
-                        $query->where('name', 'Like', '%' . $this->search . '%')
-                            ->orWhere('mobile', 'Like', '%' . $this->search . '%')
-                            ->orWhere('email', 'Like', '%' . $this->search . '%');
-                    });
-            })
-            ->latest();
-            if(isset($_GET['status']) && $_GET['status']!='all')
-            {
-                $orderQuery->where('status',$_GET['status']);
-            }
+        $orderQuery=$this->repository->getOrdersWithFilters($this->search,$_GET['status'] ?? 'all');
+        $orders= $orderQuery->paginate(10);
 
-            $orders=$orderQuery->paginate(10);
+        $this->repository->transformQuery($orders);
 
-        $orders->getCollection()->transform(function ($order) {
-            $parts = explode('-', $order->order_number);
-            $order->order_number = $parts[2] ?? null;
-            $order->statusColor = $this->getStatusColor($order->status);
-            $order->statusPaymentColor = $this->getStatusColor($order->payment->status);
-            return $order;
-        });
+
+        
         return view('livewire.admin.order.index', [
             'orders' => $orders
         ])->layout('layouts.admin.app');

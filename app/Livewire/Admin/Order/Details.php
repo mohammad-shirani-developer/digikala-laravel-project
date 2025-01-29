@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Order;
 
 use App\Models\Order;
+use App\Repositories\Admin\AdminOrderRepositoryInterface;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -11,41 +12,26 @@ class Details extends Component
     public $orderDetails;
     public $statusColor;
 
+    private $repository;
+
+
+    public function boot(AdminOrderRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+
     public function mount(Order $order)
     {
 
-        $orderDetails=$this->orderDetails = $order->load([
-            'orderItems.product:id,name,price,p_code',
-            'orderItems.product.coverImage:id,path,product_id',
-            'payment',
-            'paymentMethod',
-            'deliveryMethod',
-            'address',
-            'address.country',
-            'address.state',
-            'address.city',
-        ]);
+        $this->orderDetails = $this->repository->getOrderDatails($order);
 
-        $parts = explode('-', $orderDetails->order_number);
-        $orderDetails->order_number = $parts[2] ?? null;
-        $orderDetails->statusPaymentColor = $this->getStatusColor( $orderDetails->payment->status);
-        $this->statusColor=$this->getStatusColor($orderDetails->status);
-
-
+        $this->statusColor = $this->repository->getStatusColor($this->orderDetails->status);
     }
 
     public function getStatusColor($status)
     {
-        switch ($status) {
-            case 'pending':
-                return 'primary';
-            case 'processing':
-                return 'info';
-            case 'completed':
-                return 'success';
-            case 'canceled':
-                return 'danger';
-        }
+      return  $this->repository->getStatusColor($status);
     }
 
     public function changeStatus(Order $order, $value)
@@ -64,7 +50,7 @@ class Details extends Component
         $this->resetValidation();
 
         $order->update(['status' => $value]);
-        $this->statusColor=$this->getStatusColor($order->status);
+        $this->statusColor = $this->getStatusColor($order->status);
         $this->dispatch('success', 'عملیات با موفقیت انجام شد');
     }
 
