@@ -4,11 +4,14 @@ namespace App\Livewire\Client\Cart;
 
 use App\Models\Cart;
 use App\Repositories\Client\cart\ClientCartRepositoryInterface;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
 {
+    use SEOTools;
+
 
     public $cartItems = [];
     public $invoice = [];
@@ -18,6 +21,18 @@ class Index extends Component
     public function boot(ClientCartRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function mount()
+    {
+        $this->seoConfig();
+    
+    }
+
+    public function seoConfig()
+    {
+        $this->seo()->setTitle('سبد خرید شما')->setDescription('هر آنچه که نیاز دارید با بهترین قیمت از دیجی‌کالا بخرید!');
+    
     }
 
 

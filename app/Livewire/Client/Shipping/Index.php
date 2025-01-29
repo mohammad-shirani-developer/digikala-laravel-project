@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\DeliveryMethod;
 use App\Models\State;
 use App\Repositories\Client\shipping\ClientShippingRepositoryInterface;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +18,9 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    
+    use SEOTools;
+
+
     public $deliveries = [];
     public $addressList = [];
     public $addressId = 0;
@@ -55,7 +58,7 @@ class Index extends Component
 
     public function mount()
     {
-
+        $this->seoConfig();
 
 
         if (Session::get('invoiceFromCart')) {
@@ -71,6 +74,11 @@ class Index extends Component
         $this->deliveryMethodId = $this->deliveries->first()->id;
 
         $this->totalAmountForPayment($this->totalDiscountedPrice, $this->deliveryPrice, $this->discountCodeAmount);
+    }
+
+    public function seoConfig()
+    {
+        $this->seo()->setTitle('جزییات  ارسال سفارش')->setDescription('هر آنچه که نیاز دارید با بهترین قیمت از دیجی‌کالا بخرید!');
     }
 
     public function totalAmountForPayment($totalDiscountedPrice, $deliveryPrice, $discountCodeAmount)
@@ -211,30 +219,27 @@ class Index extends Component
 
     public function createOrder($paymentMethodId, $orderNumber)
     {
-     return  $this->repository->createOrder($paymentMethodId, $orderNumber,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
+        return  $this->repository->createOrder($paymentMethodId, $orderNumber, $this->totalAmount, $this->addressId, $this->deliveryMethodId);
     }
 
     public function createOrderItems($cartItem, $orderId)
     {
-     $this->repository->createOrderItems($cartItem, $orderId);
+        $this->repository->createOrderItems($cartItem, $orderId);
     }
 
-    public function createPayment($orderId,$orderNumber)
+    public function createPayment($orderId, $orderNumber)
     {
-       $this->repository->createPayment($orderId,$orderNumber,$this->totalAmount);
+        $this->repository->createPayment($orderId, $orderNumber, $this->totalAmount);
     }
 
     public function submitOrderBeforPayment($cartItem, $paymentMethodId, $orderNumber)
     {
-        $this->repository->submitOrderBeforPayment($cartItem, $paymentMethodId, $orderNumber,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
-
-       
+        $this->repository->submitOrderBeforPayment($cartItem, $paymentMethodId, $orderNumber, $this->totalAmount, $this->addressId, $this->deliveryMethodId);
     }
 
     public function submitOrder(PaymentGetWayInterface $paymentGetWay)
     {
-        $this->repository->submitOrder( $paymentGetWay,$this->totalAmount,$this->addressId,$this->deliveryMethodId);
-       
+        $this->repository->submitOrder($paymentGetWay, $this->totalAmount, $this->addressId, $this->deliveryMethodId);
     }
 
     public function render()

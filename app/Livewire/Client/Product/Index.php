@@ -3,10 +3,12 @@
 namespace App\Livewire\Client\Product;
 
 use App\Repositories\client\product\ClientProductRepositoryInterface;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
 
 class Index extends Component
 {
+    use SEOTools;
     public $product;
 
     private $repository;
@@ -24,6 +26,15 @@ class Index extends Component
             $product->finalPrice = $product->price - $discountAmount;
         }
         $this->product = $product;
+
+        $this->seoConfig($product->seoItem);
+
+    }
+
+    public function seoConfig($productSeoItem)
+    {
+        $this->seo()->setTitle($productSeoItem->meta_title)->setDescription($productSeoItem->meta_description);
+    
     }
 
     public function render()
