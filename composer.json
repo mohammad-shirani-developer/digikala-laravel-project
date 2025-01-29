@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "artesaos/seotools": "^1.3",
         "ghasedak/laravel": "^2.1",
         "ghasedaksms/ghasedaksms-laravel": "^1.0",
         "hekmatinasser/verta": "^8.4",
