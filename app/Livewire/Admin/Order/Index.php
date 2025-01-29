@@ -48,7 +48,7 @@ class Index extends Component
 
     public function render()
     {
-        $orders = Order::query()->with('user', 'payment')
+        $orderQuery = Order::query()->with('user', 'payment')
             ->when($this->search, function ($query) {
                 $query->where('order_number', 'Like', '%' . $this->search . '%')
                     ->orWhereHas('user', function ($query) {
@@ -57,7 +57,13 @@ class Index extends Component
                             ->orWhere('email', 'Like', '%' . $this->search . '%');
                     });
             })
-            ->paginate(10);
+            ->latest();
+            if(isset($_GET['status']) && $_GET['status']!='all')
+            {
+                $orderQuery->where('status',$_GET['status']);
+            }
+
+            $orders=$orderQuery->paginate(10);
 
         $orders->getCollection()->transform(function ($order) {
             $parts = explode('-', $order->order_number);

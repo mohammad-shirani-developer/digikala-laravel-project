@@ -50,6 +50,7 @@ Route::name('admin.')->group(function () {
     Route::get('/slider', sliderIndex::class)->name('slider.index');
 
     Route::get('/order', orderIndex::class)->name('order.index');
-    Route::get('/order/{orderId}', orderDetails::class)->name('order.details');
+    
+    Route::get('/order/{order}', orderDetails::class)->name('order.details');
 
 });

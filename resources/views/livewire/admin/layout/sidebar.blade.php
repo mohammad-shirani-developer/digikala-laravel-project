@@ -141,7 +141,7 @@
                     <li>
                         <a class="badge badge-light-warning" href="{{route('admin.order.index')}}"> کل سفارشات </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a class="badge badge-light-secondary" href="{{route('admin.order.index')}}?status=pending"> Pending </a>
                     </li>
                     <li>
@@ -151,7 +151,7 @@
                         <a class="badge badge-light-success" href="{{route('admin.order.index')}}?status=completed"> Completed </a>
                     </li>
                     <li>
-                        <a class="badge badge-light-danger" href="{{route('admin.order.index')}}?status=cancelled"> Cancelled </a> --}}
+                        <a class="badge badge-light-danger" href="{{route('admin.order.index')}}?status=canceled"> Canceled </a>
                     </li>
                 </ul>
             </li>
