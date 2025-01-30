@@ -49,7 +49,7 @@ class Index extends Component
 
     public function render()
     {
-        $orderQuery=$this->repository->getOrdersWithFilters($this->search,$_GET['status'] ?? 'all');
+        $orderQuery=$this->repository->getOrdersWithFilters($this->search,$_GET['status'] ?? 'all',$_GET['user'] ?? 'all');
         $orders= $orderQuery->paginate(10);
 
         $this->repository->transformQuery($orders);
