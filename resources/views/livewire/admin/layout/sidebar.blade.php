@@ -178,7 +178,7 @@
                         <a class="badge badge-light-info" href="{{ route('admin.user.index') }}"> مشتریان </a>
                     </li>
                     <li>
-                        <a class="badge badge-light-secondary" href="./element-avatar.html"> ادمین ها </a>
+                        <a class="badge badge-light-secondary" href="{{ route('admin.admin-user.index') }}"> ادمین ها </a>
                     </li>
                     <li>
                         <a class="badge badge-light-success" href="./element-badges.html"> فروشندگان </a>

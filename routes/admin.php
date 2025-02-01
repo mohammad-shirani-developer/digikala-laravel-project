@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\AdminUser\Index as adminUserindex;
 use App\Livewire\Admin\Auth\Index as authIndex;
 use App\Livewire\Admin\Dashboard\Index as dashboardIndex;
 use App\Livewire\Admin\Country\Index as countryIndex;
@@ -32,7 +33,7 @@ Route::name('admin.')->group(function () {
 
 
     Route::middleware('auth:admin')->group(function () {
-        Route::get('/dashboard',  dashboardIndex::class)->name('dashboard.index');
+        Route::get('/dashboard',  dashboardIndex::class)->name('dashboard.index')->middleware(['role:super admin']);
         Route::get('/country', countryIndex::class)->name('country.index');
         Route::get('/state', stateIndex::class)->name('state.index');
         Route::get('/city', cityIndex::class)->name('city.index');
@@ -43,10 +44,10 @@ Route::name('admin.')->group(function () {
 
         // product
 
-        Route::get('/product', productIndex::class)->name('product.index');
-        Route::get('/product/create', Create::class)->name('product.create');
-        Route::get('/product/feature/{product}', productFeatures::class)->name('product.features');
-        Route::get('/product/content/{product}', Content::class)->name('product.content');
+        Route::get('/product', productIndex::class)->name('product.index')->middleware(['role:product admin']);
+        Route::get('/product/create', Create::class)->name('product.create')->middleware(['role:product admin']);
+        Route::get('/product/feature/{product}', productFeatures::class)->name('product.features')->middleware(['role:product admin']);
+        Route::get('/product/content/{product}', Content::class)->name('product.content')->middleware(['role:product admin']);
 
         Route::post('/ck-upload,{productId}', [CkUpload::class, 'upload'])->name('ck-upload');
 
@@ -60,15 +61,16 @@ Route::name('admin.')->group(function () {
 
         Route::get('/slider', sliderIndex::class)->name('slider.index');
 
-        Route::get('/order', orderIndex::class)->name('order.index');
+        Route::get('/order', orderIndex::class)->name('order.index')->middleware(['role:order admin|product admin']);
 
-        Route::get('/order/{order}', orderDetails::class)->name('order.details');
+        Route::get('/order/{order}', orderDetails::class)->name('order.details')->middleware(['role:order admin']);
 
         Route::get('/transaction', transactionIndex::class)->name('transaction.index');
 
         //user
 
         Route::get('/user', userIndex::class)->name('user.index');
+        Route::get('/admin-user', adminUserindex::class)->name('admin-user.index');
 
     });
 });

@@ -296,8 +296,13 @@
                                 &#x1F44B;
                             </div>
                             <div class="media-body">
-                                <h5>Shaun Park</h5>
-                                <p>Project Leader</p>
+                                <h5>{{ Auth::guard('admin')->user()->name }}</h5>
+                                <p>
+                                    @foreach ( Auth::guard('admin')->user()->getRoleNames() as $role )
+                                    {{  $role }}
+                                    @endforeach
+                                 
+                                </p>
                             </div>
                         </div>
                     </div>
